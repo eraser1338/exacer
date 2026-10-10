@@ -1,0 +1,2035 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f3f0e8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131518" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Práctica EXACER</title>
+<meta name="description" content="Práctica con las 272 preguntas de la Versión de práctica 2025 del EXACER, en orden aleatorio.">
+<style>
+:root{
+  --bg:#f3f0e8; --surface:#fffdf9; --surface-2:#f7f3ea; --ink:#1d2023; --muted:#5a6168; --faint:#7a8087; --line:#dcd5c7;
+  --accent:#bf4f2d; --accent-strong:#9f3f1f; --accent-soft:#f6e2d8; --on-accent:#ffffff;
+  --ok:#17784a; --ok-soft:#d8eedf; --on-ok:#ffffff; --bad:#b3261e; --bad-soft:#f8dbd6; --on-bad:#ffffff;
+  --bub-edge:#8f877a;
+  --paper:#ffffff; --paper-filter:none; --paper-edge:#e4ddd0;
+  --shadow:0 1px 2px rgba(45,35,15,.07),0 4px 14px rgba(45,35,15,.06);
+  --focus:#2f6fdb; --bar-h:120px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131518; --surface:#1b1e22; --surface-2:#21252a; --ink:#ebe8e1; --muted:#a8aeb5; --faint:#8b9198; --line:#30353b;
+    --accent:#e6825f; --accent-strong:#f29a7a; --accent-soft:#3b2620; --on-accent:#1b120f;
+    --ok:#55c38c; --ok-soft:#163224; --on-ok:#0f1a14; --bad:#ff5f5f; --bad-soft:#4a1d1d; --on-bad:#1c0f0e;
+    --bub-edge:#6b727b;
+    --paper:#f3f1ec; --paper-filter:brightness(.92); --paper-edge:#30353b;
+    --shadow:0 1px 2px rgba(0,0,0,.45),0 4px 16px rgba(0,0,0,.35);
+    --focus:#7aa7ff; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131518; --surface:#1b1e22; --surface-2:#21252a; --ink:#ebe8e1; --muted:#a8aeb5; --faint:#8b9198; --line:#30353b;
+  --accent:#e6825f; --accent-strong:#f29a7a; --accent-soft:#3b2620; --on-accent:#1b120f;
+  --ok:#55c38c; --ok-soft:#163224; --on-ok:#0f1a14; --bad:#ff5f5f; --bad-soft:#4a1d1d; --on-bad:#1c0f0e;
+  --bub-edge:#6b727b;
+  --paper:#f3f1ec; --paper-filter:brightness(.92); --paper-edge:#30353b;
+  --shadow:0 1px 2px rgba(0,0,0,.45),0 4px 16px rgba(0,0,0,.35);
+  --focus:#7aa7ff; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+html,body{background:var(--bg);color:var(--ink)}
+body{min-height:100%;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.45;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+#app{min-height:100%;display:flex;flex-direction:column}
+#app>section{flex:0 0 auto}
+h1,h2,h3{text-wrap:balance;margin:0;line-height:1.2}
+p{margin:0}
+p,.sub,.msg,.small,.note{text-wrap:pretty}
+button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+html{overscroll-behavior-y:none}
+button:disabled{cursor:default}
+a{color:var(--accent-strong)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.vh{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:760px;margin:0 auto;padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px));padding-block:24px 56px}
+.stack{display:flex;flex-direction:column;gap:14px}
+.muted{color:var(--muted)}
+.small{font-size:.875rem}
+.tnum{font-variant-numeric:tabular-nums}
+.nw{white-space:nowrap}
+
+/* masthead */
+.mast{display:flex;flex-direction:column;gap:6px;padding-block:2px 6px}
+.mast h1{font-size:1.75rem;letter-spacing:-.01em}
+.mast .sub{color:var(--muted);font-size:1rem}
+.kicker{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-strong);font-weight:700}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:10px 18px;border-radius:999px;border:2px solid var(--accent);background:var(--accent);color:var(--on-accent);font-weight:700;text-decoration:none;line-height:1.1;cursor:pointer}
+@media (hover:hover){.btn:hover{background:var(--accent-strong);border-color:var(--accent-strong)}}
+.btn.ghost{background:transparent;color:var(--accent-strong)}
+@media (hover:hover){.btn.ghost:hover{background:var(--accent-soft)}}
+.btn:disabled{opacity:.5}
+.btn.block{width:100%}
+.link{display:inline-flex;align-items:center;min-height:44px;background:none;border:0;padding:4px 2px;color:var(--accent-strong);text-decoration:underline;text-underline-offset:3px;font-size:.95rem}
+.link.plain{color:var(--muted)}
+#file:focus-visible + .btn{outline:2px solid var(--focus);outline-offset:3px}
+
+/* cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+.steps{counter-reset:s;display:flex;flex-direction:column;gap:18px;margin:0;padding:0;list-style:none}
+.steps li{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start}
+.steps li::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:2px solid var(--accent);color:var(--accent-strong);font-weight:700}
+.steps .body{display:flex;flex-direction:column;gap:8px;min-width:0}
+.url-box{display:flex;flex-direction:column;align-items:flex-start;gap:2px;font-size:.85rem;color:var(--muted)}
+.url{word-break:break-all;user-select:all;-webkit-user-select:all;color:var(--ink)}
+.drop{border:2px dashed var(--line);border-radius:12px;padding:14px;text-align:center;color:var(--muted)}
+.drop.over{border-color:var(--accent);background:var(--accent-soft)}
+.drop-hint{margin-top:8px}
+@media (hover:none){.drop-hint{display:none}.drop{border:0;padding:0;text-align:left}}
+.msg{border-radius:12px;padding:12px 14px;font-size:.95rem}
+.msg.err{background:var(--bad-soft);color:var(--ink);border:1px solid var(--bad)}
+.msg.info{background:var(--surface-2);border:1px solid var(--line)}
+
+/* sections list */
+.sec-all{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--surface);border:2px solid var(--accent);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);color:var(--ink)}
+@media (hover:hover){.sec-all:hover{background:var(--accent-soft)}}
+.sec-all .t{font-size:1.2rem;font-weight:700}
+.sec-list{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.sec-row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:transparent;border:0;border-top:1px solid var(--line);padding:14px 16px;min-height:64px;color:var(--ink)}
+.sec-row:first-child{border-top:0}
+@media (hover:hover){.sec-row:hover{background:var(--surface-2)}}
+.sec-row:focus-visible{outline-offset:-3px}
+.sec-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.sec-name{font-weight:700}
+.sec-meta,.sec-last{font-size:.875rem;color:var(--muted)}
+.sec-last{display:block}
+.sec-cont{font-size:.875rem;font-weight:700;color:var(--accent-strong)}
+.sec-go{flex:none;font-size:1.6rem;line-height:1;color:var(--faint)}
+.h2{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:10px 2px -4px}
+footer.foot{display:flex;flex-direction:column;gap:6px;font-size:.875rem;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;margin-top:6px}
+footer.foot .row{display:flex;flex-wrap:wrap;gap:0 18px}
+
+/* quiz */
+#scr-quiz:not([hidden]){display:flex;flex-direction:column;flex:1 0 auto}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:760px;margin:0 auto;padding-block:4px;padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px));display:flex;align-items:center;gap:10px}
+.topbar .ttl{flex:1;min-width:0;text-align:center;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar .count{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.95rem;white-space:nowrap}
+.tb-btn{background:none;border:0;padding:8px 6px;min-height:44px;color:var(--accent-strong);font-weight:700;white-space:nowrap}
+.tb-btn[data-armed="1"]{background:var(--bad);color:var(--on-bad);border-radius:999px;padding-inline:14px}
+.bar{height:3px;background:var(--line)}
+.bar>i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+.qwrap{flex:1 0 auto;width:100%;max-width:760px;margin:0 auto;padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px));padding-block:14px 18px;display:flex;flex-direction:column;gap:12px}
+.qmeta{font-size:.92rem;color:var(--muted)}
+.qmeta b{color:var(--ink)}
+.qmeta:focus{outline:none}
+.ctx-label{font-size:.875rem;color:var(--muted);font-weight:700;letter-spacing:.01em}
+.paper{background:var(--paper);border:1px solid var(--paper-edge);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);position:relative;min-height:60px;cursor:zoom-in;touch-action:manipulation;-webkit-touch-callout:none}
+.paper canvas{display:block;width:100%;height:auto;filter:var(--paper-filter)}
+.paper .ph{position:absolute;inset:0;display:grid;place-items:center;color:#7a7f86;font-size:.9rem;padding:12px;text-align:center;opacity:0;animation:phin .2s .3s forwards}
+@keyframes phin{to{opacity:1}}
+.tools{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px}
+.zoom-btn{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:6px 16px 6px 12px;border:2px solid var(--accent);border-radius:999px;background:var(--surface);color:var(--accent-strong);font-weight:700;font-size:.95rem}
+@media (hover:hover){.zoom-btn:hover{background:var(--accent-soft)}}
+.zoom-btn svg{width:18px;height:18px;flex:none}
+.rot-hint{display:none}
+@media (max-width:480px) and (orientation:portrait){.rot-hint{display:inline}}
+.kbd-hint{display:none}
+@media (pointer:fine) and (min-width:700px){#scr-quiz.quizmode .kbd-hint{display:block}}
+.note{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:10px 12px;font-size:.95rem;scroll-margin-bottom:calc(var(--bar-h) + 12px)}
+.note b{color:var(--accent-strong)}
+.answerbar{position:sticky;bottom:0;z-index:4;background:var(--bg);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.answerbar .in{max-width:760px;margin:0 auto;padding-block:10px 12px;padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:10px}
+.bubbles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.bub{position:relative;height:50px;border-radius:999px;border:2px solid var(--bub-edge);background:var(--surface);color:var(--ink);font-weight:700;font-size:1.15rem;letter-spacing:.02em;transition:background .12s,color .12s,border-color .12s}
+@media (hover:hover){.bub:hover:not(:disabled){background:var(--surface-2);border-color:var(--ink)}}
+.bub:disabled{opacity:1}
+.bub.ok{background:var(--ok);border-color:var(--ok);color:var(--on-ok)}
+.bub.bad{background:var(--bad);border-color:var(--bad);color:var(--on-bad)}
+.bub.ans{border-color:var(--ok);color:var(--ok);background:var(--ok-soft);border-width:3px}
+.bub.dim{opacity:.55}
+.fb{display:flex;align-items:center;gap:12px;min-height:46px}
+.fb.wait .btn{visibility:hidden}
+.fb .txt{flex:1;min-width:0;font-weight:700}
+.fb .txt.ok{color:var(--ok)}
+.fb .txt.bad{color:var(--bad)}
+.fb .btn{flex:none;padding-inline:20px}
+.answerbar .btn{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+@media (hover:hover){.answerbar .btn:hover{background:var(--ink);border-color:var(--ink);opacity:.88}}
+.answerbar .btn.ghost{background:transparent;border-color:var(--bub-edge);color:var(--ink)}
+@media (hover:hover){.answerbar .btn.ghost:hover{background:var(--surface-2);opacity:1}}
+.revnav{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px}
+.revnav .txt{grid-column:1/-1;text-align:center;font-weight:700}
+.revnav .txt.bad{color:var(--bad)}
+.revnav .btn{min-width:0}
+@media (max-width:480px){
+  .topbar .ttl{visibility:hidden}
+  .qwrap .paper{margin-inline:-16px;border-radius:0;border-inline:0}
+}
+@media (max-width:360px){
+  .topbar .in{gap:6px;padding-inline:12px}
+  .topbar .count{font-size:.85rem}
+  .tb-btn[data-armed="1"]{padding-inline:10px}
+}
+@media (max-width:300px){.topbar .in:has(#q-end[data-armed="1"]) .count{display:none}}
+@media (max-width:420px){
+  .mast h1{font-size:1.55rem}
+  .bub{height:48px}
+  .fb .txt{font-size:.95rem}
+  .fb .btn{padding-inline:16px}
+}
+@media (orientation:landscape) and (max-height:500px){
+  .topbar .in{padding-block:0}
+  .topbar .ttl{visibility:hidden}
+  .qwrap{padding-block:8px 12px;gap:8px}
+  .answerbar .in{flex-direction:row;align-items:center;padding-block:6px;gap:12px}
+  .bubbles{flex:1 1 300px;gap:8px}
+  .bub{height:44px}
+  .fb{flex:1 1 320px;min-height:44px}
+  .fb .btn{min-height:44px}
+  #scr-quiz:not(.quizmode) .bubbles{flex:0 0 200px}
+  .revnav{flex:1 1 auto;display:flex;align-items:center;gap:10px;min-width:0}
+  #q-prev{order:-1}
+  .revnav .btn{flex:none;white-space:nowrap;min-height:44px}
+  .revnav .txt{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}
+@media (orientation:landscape) and (max-height:500px) and (max-width:700px){.revnav .txt{display:none}.revnav{justify-content:flex-end}}
+
+/* summary */
+.tbl-wrap{overflow-x:auto;position:relative}
+table.res{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table.res th,table.res td{padding:10px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+table.res th:first-child,table.res td:first-child{text-align:left;white-space:normal}
+table.res th{font-size:.75rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:700}
+@media (max-width:420px){#sum-card{padding:4px 12px}table.res th,table.res td{padding:10px 4px}}
+@media (max-width:340px){table.res{font-size:.88rem}table.res th{letter-spacing:0}}
+.pass{color:var(--ok);font-weight:700}
+.fail{color:var(--bad);font-weight:700}
+.row-btns{display:flex;flex-wrap:wrap;gap:10px}
+.row-btns .btn{flex:1 1 200px}
+.res-title.pass{color:var(--ok)}
+.res-title.fail{color:var(--bad)}
+#btn-change-pdf[data-armed="1"]{color:var(--bad);font-weight:700}
+
+/* busy */
+.busy{display:flex;flex-direction:column;align-items:center;gap:14px;padding-block:72px;text-align:center}
+.prog{width:min(320px,100%);height:6px;border-radius:99px;background:var(--line);overflow:hidden;position:relative}
+.prog>i{display:block;height:100%;width:0;background:var(--accent);transition:width .15s}
+.prog.ind>i{width:35%;position:absolute;animation:ind 1.1s ease-in-out infinite}
+@keyframes ind{from{left:-35%}to{left:100%}}
+@media (prefers-reduced-motion: reduce){.prog.ind>i{animation:none;width:100%;opacity:.5}.bar>i{transition:none}}
+
+/* overlay */
+.overlay{position:fixed;inset:0;z-index:50;background:#15171a;display:flex;flex-direction:column}
+.ov-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:calc(8px + env(safe-area-inset-top,0px)) max(10px,env(safe-area-inset-right,0px)) 8px max(10px,env(safe-area-inset-left,0px));color:#f1efe9;background:#15171a;border-bottom:1px solid #2c3036}
+.ov-cap{margin:0;padding:6px 12px;background:#1f2328;color:#e9e6df;font-size:.9rem;text-align:center;border-bottom:1px solid #2c3036}
+.ov-bar .ttl{flex:1;min-width:0;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ov-btn{flex:none;background:#2a2e34;border:1px solid #3a3f46;color:#fff;border-radius:999px;padding:6px 14px;min-height:44px;min-width:44px;font-weight:700;font-size:.95rem}
+.ov-btn:disabled{opacity:.4}
+.ov-body{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:12px max(12px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));touch-action:pan-x pan-y pinch-zoom}
+.ov-body canvas{display:block;margin:0 auto;background:#fff;border-radius:6px;max-width:none}
+@media (max-width:480px){
+  .ov-bar{flex-wrap:nowrap;gap:6px;padding-inline:8px}
+  .ov-bar .ttl{display:none}
+  #ov-close{order:-1}
+  #ov-out{margin-left:auto}
+  #ov-toggle,#ov-rot{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-inline:12px}
+  .ov-body{padding-inline:0}
+  .ov-body canvas{border-radius:0}
+}
+@media (max-width:400px){.ov-bar{gap:4px;padding-inline:6px}#ov-toggle,#ov-rot{padding-inline:9px;font-size:.9rem}}
+.ov-msg{color:#ddd;padding:20px;text-align:center}
+
+/* touch screens: a brief mark while the finger is down, since there is no hover */
+@media (hover:none){
+  .btn:active{filter:brightness(.92)}
+  .answerbar .btn:active{opacity:.85}
+  .bub:active:not(:disabled){background:var(--surface-2);border-color:var(--ink)}
+  .sec-all:active{background:var(--accent-soft)}
+  .sec-row:active{background:var(--surface-2)}
+  .zoom-btn:active{background:var(--accent-soft)}
+  .tb-btn:active,.link:active{opacity:.6}
+  .ov-btn:active{background:#3a3f46}
+}
+
+/* technical details */
+table.diag{border-collapse:collapse;font-size:.85rem;font-variant-numeric:tabular-nums;width:100%}
+table.diag td,table.diag th{border-bottom:1px solid var(--line);padding:6px 6px;text-align:left;white-space:nowrap}
+.badge{display:inline-block;padding:1px 8px;border-radius:99px;font-size:.78rem;font-weight:700}
+.badge.ok{background:var(--ok-soft);color:var(--ok)}
+.badge.warn{background:var(--accent-soft);color:var(--accent-strong)}
+.badge.bad{background:var(--bad-soft);color:var(--bad)}
+</style>
+
+<div id="app">
+
+<!-- ============ SETUP (no PDF yet) ============ -->
+<section id="scr-setup" hidden>
+  <div class="wrap stack">
+    <header class="mast">
+      <h1>Práctica EXACER</h1>
+      <p class="sub">Practica con las 272 preguntas oficiales de la guía 2025, en orden al azar.</p>
+    </header>
+    <div class="card stack">
+      <p>Necesitas el PDF oficial de práctica del Colegio de Bachilleres. Lo cargas una vez y se queda guardado en este navegador, sin subirse a internet.</p>
+      <ol class="steps">
+        <li><div class="body">
+          <b>Descarga el PDF oficial</b>
+          <span class="muted small">Se llama Version_práctica.pdf y tiene 157 páginas. En iPhone: ábrelo, toca Compartir y elige Guardar en Archivos.</span>
+          <div><a class="btn ghost" href="https://cbgobmx.cbachilleres.edu.mx/micPorExa/pdf/descargas/Version_pr%C3%A1ctica.pdf" target="_blank" rel="noopener">Abrir el PDF oficial ↗</a></div>
+          <div class="url-box"><button class="link" id="btn-copy-url">Copiar enlace</button><span id="url-help" hidden>Mantén presionado el enlace para copiarlo:</span><span class="url" id="pdf-url" hidden>https://cbgobmx.cbachilleres.edu.mx/micPorExa/pdf/descargas/Version_práctica.pdf</span></div>
+        </div></li>
+        <li><div class="body">
+          <b>Cárgalo aquí</b>
+          <div id="drop" class="drop">
+            <input id="file" class="vh" type="file" accept="application/pdf,.pdf">
+            <label class="btn" for="file">Elegir el PDF…</label>
+            <div class="small drop-hint">o arrástralo aquí</div>
+          </div>
+          <div id="setup-msg" class="msg err" role="alert" hidden></div>
+        </div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUSY ============ -->
+<section id="scr-busy">
+  <div class="wrap">
+    <div class="busy">
+      <p id="busy-title" role="status" aria-live="polite"><b>Cargando…</b></p>
+      <div class="prog ind" id="busy-prog"><i id="busy-bar"></i></div>
+      <p id="busy-sub" class="muted small tnum" aria-hidden="true"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOME ============ -->
+<section id="scr-home" hidden>
+  <div class="wrap stack">
+    <header class="mast">
+      <h1>Práctica EXACER</h1>
+      <p class="sub">Versión de práctica 2025</p>
+    </header>
+    <div id="home-msg" class="msg info" role="status" hidden></div>
+    <div id="sec-all-box"></div>
+    <div class="h2">Por área</div>
+    <div id="sec-list" class="sec-list"></div>
+    <footer class="foot">
+      <p>Cada ronda sale en un orden nuevo al azar y no repite preguntas.</p>
+      <p>Preguntas y claves: Versión de práctica 2025 del Colegio de Bachilleres. Herramienta personal de estudio, no oficial.</p>
+      <div class="row">
+        <button class="link plain" id="btn-change-pdf">Cambiar PDF</button>
+        <button class="link plain" id="btn-diag">Detalles técnicos</button>
+      </div>
+    </footer>
+  </div>
+</section>
+
+<!-- ============ QUIZ / REVIEW ============ -->
+<section id="scr-quiz" hidden>
+  <div class="topbar">
+    <div class="in">
+      <button class="tb-btn" id="q-back">← Inicio</button>
+      <div class="ttl" id="q-title"></div>
+      <span class="count" id="q-count"></span>
+      <button class="tb-btn" id="q-end">Terminar</button>
+    </div>
+    <div class="bar"><i id="q-bar"></i></div>
+  </div>
+  <div class="qwrap">
+    <div class="qmeta" id="q-metarow" tabindex="-1"><span id="q-meta"></span></div>
+    <div id="q-ctx-box" class="stack" style="gap:8px" hidden>
+      <div class="ctx-label" id="q-ctx-label"></div>
+      <div class="paper" id="q-ctx-paper" title="Ampliar el texto"></div>
+      <div class="tools"><button class="zoom-btn" id="q-ctx-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>Ampliar el texto</button></div>
+    </div>
+    <div id="q-fallback" class="msg info" hidden></div>
+    <div class="ctx-label" id="q-label" hidden></div>
+    <div class="paper" id="q-paper" title="Ampliar"></div>
+    <div class="tools">
+      <button class="zoom-btn" id="q-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>Ampliar</button>
+      <span class="rot-hint small muted">o gira el celular</span>
+    </div>
+    <div id="q-note" class="note" hidden></div>
+    <p class="kbd-hint small muted">Atajos: A, B, C o D para responder · Enter para seguir · Esc cierra el zoom</p>
+  </div>
+  <div class="answerbar" id="q-answerbar">
+    <div class="in">
+      <div class="bubbles" id="q-bubbles">
+        <button class="bub" data-c="0" aria-label="Opción A">A</button>
+        <button class="bub" data-c="1" aria-label="Opción B">B</button>
+        <button class="bub" data-c="2" aria-label="Opción C">C</button>
+        <button class="bub" data-c="3" aria-label="Opción D">D</button>
+      </div>
+      <div class="fb wait" id="q-fb">
+        <span class="txt" id="q-fb-txt" aria-live="polite"></span>
+        <button class="btn" id="q-next" disabled>Siguiente →</button>
+      </div>
+      <div class="revnav" id="q-revnav" hidden>
+        <span class="txt" id="q-rev-txt"></span>
+        <button class="btn ghost" id="q-prev">← Anterior</button>
+        <button class="btn" id="q-rnext">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SUMMARY ============ -->
+<section id="scr-sum" hidden>
+  <div class="wrap stack">
+    <header class="mast">
+      <span class="kicker" id="sum-kicker">Resultado</span>
+      <h1 id="sum-title" class="res-title"></h1>
+      <p class="sub" id="sum-sub"></p>
+    </header>
+    <div class="card" id="sum-card">
+      <div class="tbl-wrap"><table class="res" id="sum-table"></table></div>
+    </div>
+    <p class="muted small" id="sum-rule"></p>
+    <div class="stack" id="sum-wrong-box">
+      <button class="btn block" id="sum-review"></button>
+    </div>
+    <div class="row-btns">
+      <button class="btn ghost" id="sum-again">Nueva ronda</button>
+      <button class="btn ghost" id="sum-home">Inicio</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TECHNICAL DETAILS ============ -->
+<section id="scr-diag" hidden>
+  <div class="wrap stack">
+    <header class="mast">
+      <span class="kicker">Detalles técnicos</span>
+      <h1>Cómo se leyó el PDF</h1>
+      <p class="sub" id="diag-sub"></p>
+      <p class="muted small">Versión de la app 1.5 · 10-oct-2026 · lector pdf.js 3.11.174</p>
+    </header>
+    <div class="row-btns">
+      <button class="btn" id="diag-browse">Ver las 272 en orden</button>
+      <button class="btn ghost" id="diag-home">Inicio</button>
+    </div>
+    <div class="tbl-wrap"><table class="diag" id="diag-table"></table></div>
+  </div>
+</section>
+
+</div>
+
+<div id="overlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="ov-title" hidden>
+  <div class="ov-bar">
+    <span class="ttl" id="ov-title"></span>
+    <button class="ov-btn" id="ov-out" aria-label="Alejar">−</button>
+    <button class="ov-btn" id="ov-in" aria-label="Acercar">+</button>
+    <button class="ov-btn" id="ov-rot" hidden>De lado</button>
+    <button class="ov-btn" id="ov-toggle"></button>
+    <button class="ov-btn" id="ov-close" aria-label="Cerrar">✕</button>
+  </div>
+  <p class="ov-cap" id="ov-cap" hidden>Gira el celular para leer.</p>
+  <div class="ov-body" id="ov-body"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+/*CORE-START*/
+var CORE = (function () {
+  'use strict';
+
+  // ---------------------------------------------------------------- data
+  var AREAS = [
+    { id: 'mat',  name: 'Matemáticas',              short: 'Mate', n: 40 },
+    { id: 'hum',  name: 'Humanidades',              short: 'Hum',  n: 40 },
+    { id: 'exp',  name: 'Ciencias Experimentales',  short: 'Exp',  n: 60 },
+    { id: 'com',  name: 'Comunicación',             short: 'Com',  n: 32 },
+    { id: 'soc',  name: 'Ciencias Sociales',        short: 'Soc',  n: 40 },
+    { id: 'trab', name: 'Introducción al Trabajo',  short: 'Trab', n: 20 },
+    { id: 'rh',   name: 'Recursos Humanos',         short: 'RH',   n: 40 }
+  ];
+  // [area, number, pdfPage, anchorLength, anchorHash, officialKey(0..3)]
+  var QDATA = [[0,1,7,26,3420961798,0],[0,2,7,26,2794568413,1],[0,3,7,26,2707925849,0],[0,4,7,26,2544435310,3],[0,5,8,26,608310584,2],[0,6,8,26,1871156997,1],[0,7,8,26,2328044729,1],[0,8,9,26,3279549766,1],[0,9,9,26,3894452363,1],[0,10,9,27,2158821131,1],[0,11,10,27,2663675753,2],[0,12,10,27,4097587248,1],[0,13,11,27,120108728,2],[0,14,11,6,686834121,0],[0,15,11,27,3058451667,3],[0,16,12,12,2808933942,0],[0,17,12,27,4280274862,2],[0,18,12,27,837563518,2],[0,19,13,27,4280416209,1],[0,20,13,27,983718361,1],[0,21,13,27,94749808,3],[0,22,13,27,430478704,0],[0,23,13,27,881957027,3],[0,24,14,27,278793357,1],[0,25,14,27,3469132620,1],[0,26,14,27,4257861851,3],[0,27,15,27,161454858,1],[0,28,16,27,549399062,3],[0,29,16,27,1997549941,2],[0,30,16,27,3789134898,2],[0,31,17,27,3632906034,3],[0,32,17,27,4177558493,3],[0,33,17,27,2853680813,3],[0,34,18,27,1590400309,0],[0,35,18,27,2804104844,1],[0,36,18,13,3247272589,1],[0,37,19,27,3430084302,0],[0,38,20,27,255884022,3],[0,39,20,27,2750392482,0],[0,40,20,27,2688457489,2],[1,1,22,26,1041748467,1],[1,2,22,26,451357568,3],[1,3,22,26,2460141360,3],[1,4,22,26,3751380127,3],[1,5,23,26,2438731590,0],[1,6,23,26,544221334,3],[1,7,23,26,784806461,3],[1,8,23,26,625255999,1],[1,9,24,26,1981826304,3],[1,10,24,27,2944997438,1],[1,11,24,27,189298174,0],[1,12,24,27,2747074227,3],[1,13,25,27,3159182992,3],[1,14,25,27,273311242,3],[1,15,25,27,1690270630,2],[1,16,25,27,4243598044,2],[1,17,26,27,3878337804,1],[1,18,26,27,2872761431,2],[1,19,26,27,2893867241,2],[1,20,27,27,1008861217,2],[1,21,27,27,3013707287,1],[1,22,28,27,1712875736,3],[1,23,28,27,94230533,1],[1,24,28,27,1522071461,0],[1,25,28,27,2280729380,3],[1,26,29,27,2125507659,1],[1,27,29,27,615486177,0],[1,28,30,27,1227901374,0],[1,29,30,27,4020411087,1],[1,30,30,27,3024547532,0],[1,31,31,27,3607815525,1],[1,32,31,27,1158857828,0],[1,33,31,27,163837686,3],[1,34,31,27,543900058,1],[1,35,32,27,2888091953,3],[1,36,32,27,1969012839,1],[1,37,32,27,3979998767,1],[1,38,32,27,4044564561,2],[1,39,33,27,3457551142,0],[1,40,33,27,1313597168,0],[2,1,35,26,1555838163,1],[2,2,35,26,3759690362,3],[2,3,36,26,2995244546,3],[2,4,36,26,3646896280,2],[2,5,36,26,3051929597,2],[2,6,37,26,779976098,2],[2,7,37,26,1839275035,2],[2,8,37,26,989280660,2],[2,9,38,26,1486103007,1],[2,10,38,27,2751049974,2],[2,11,38,27,3451406124,1],[2,12,39,27,2382611484,2],[2,13,39,27,1959537667,1],[2,14,40,27,762194863,2],[2,15,40,27,2963774691,3],[2,16,40,27,3538762753,3],[2,17,40,27,2347750189,0],[2,18,41,27,2725591331,3],[2,19,41,27,3212826432,0],[2,20,41,27,1127087899,3],[2,21,42,27,3560378106,1],[2,22,42,27,3635277591,1],[2,23,42,27,1534721188,1],[2,24,43,27,3136339815,3],[2,25,43,27,120284186,0],[2,26,43,27,3327133812,3],[2,27,44,27,519711881,3],[2,28,44,27,3072354582,0],[2,29,44,27,2513911626,3],[2,30,45,27,1703087520,1],[2,31,45,27,2458375354,0],[2,32,45,27,3270990359,1],[2,33,45,27,870490939,3],[2,34,45,27,31035997,2],[2,35,46,27,3486108095,2],[2,36,46,27,1118574554,0],[2,37,46,27,3767341542,2],[2,38,46,27,3978452897,0],[2,39,47,27,1405443780,1],[2,40,47,27,4293058287,1],[2,41,48,27,2134888632,1],[2,42,48,27,3844265210,1],[2,43,48,27,4092317187,2],[2,44,49,27,4275469954,0],[2,45,49,25,2255078243,2],[2,46,49,27,2601774011,0],[2,47,49,27,1074303218,2],[2,48,49,27,2838556394,1],[2,49,50,27,3543907978,0],[2,50,50,27,2454423655,3],[2,51,50,27,361745906,2],[2,52,50,27,1998349929,1],[2,53,51,27,3695936463,2],[2,54,51,27,2797451113,3],[2,55,51,27,579637772,2],[2,56,51,27,934610807,2],[2,57,52,24,3384530674,3],[2,58,52,27,794853131,1],[2,59,52,27,703948121,2],[2,60,52,27,3435167810,3],[3,1,54,26,2140270567,0],[3,2,54,26,3435727314,1],[3,3,54,26,985600656,1],[3,4,55,26,3136790381,2],[3,5,55,26,1403860787,0],[3,6,55,26,1694749505,0],[3,7,56,26,2328044729,2],[3,8,56,26,1393732846,1],[3,9,56,26,3894452363,0],[3,10,56,27,3504261149,3],[3,11,57,27,2758050841,2],[3,12,57,27,3087769556,1],[3,13,57,27,3366594542,3],[3,14,58,27,11490970,2],[3,15,58,27,2983856443,1],[3,16,59,27,536566021,2],[3,17,60,27,3362149347,3],[3,18,60,27,4048646014,0],[3,19,61,27,449763889,2],[3,20,61,27,1355473938,1],[3,21,62,27,764429449,2],[3,22,62,27,3681876589,3],[3,23,62,27,2879675617,1],[3,24,63,27,419997938,1],[3,25,64,27,884616039,2],[3,26,64,27,3327133812,3],[3,27,64,27,519711881,0],[3,28,65,27,3072354582,1],[3,29,65,27,1508361048,1],[3,30,66,27,3186436379,2],[3,31,66,27,1592492796,3],[3,32,66,27,4008413625,0],[4,1,68,26,1597312118,2],[4,2,68,26,2491342863,3],[4,3,68,26,1761658037,2],[4,4,68,26,4063664610,0],[4,5,69,26,3272031165,0],[4,6,69,26,1211378852,3],[4,7,69,26,2845509275,1],[4,8,69,26,4268724268,2],[4,9,70,26,1393935601,1],[4,10,70,27,3330400609,1],[4,11,71,27,2350689819,2],[4,12,71,27,1539914765,0],[4,13,71,27,2908336470,2],[4,14,72,27,861679663,2],[4,15,72,27,2069050243,1],[4,16,73,27,165463677,2],[4,17,73,27,4280882145,0],[4,18,73,27,2100157962,0],[4,19,74,27,3370323733,0],[4,20,74,27,3556009878,2],[4,21,74,27,1875002623,1],[4,22,75,27,1690290985,0],[4,23,75,27,1171914667,3],[4,24,75,27,917839832,1],[4,25,75,27,4181720104,1],[4,26,76,27,1800239681,1],[4,27,76,27,519711881,0],[4,28,76,27,3403482488,3],[4,29,76,27,2182312087,3],[4,30,77,27,1121932541,0],[4,31,77,27,2000850845,0],[4,32,77,27,3270990359,1],[4,33,78,27,3325746864,1],[4,34,78,27,2914222161,2],[4,35,79,27,2005835112,2],[4,36,79,27,1969012839,1],[4,37,79,27,4035873430,1],[4,38,80,27,3806567320,2],[4,39,80,27,2332351653,3],[4,40,81,27,4279002458,2],[5,1,83,26,2333130087,1],[5,2,83,26,3327023851,1],[5,3,83,26,1516628018,1],[5,4,83,26,869529942,1],[5,5,84,26,571449446,2],[5,6,84,26,7664728,0],[5,7,84,26,750727893,1],[5,8,84,26,1992451571,0],[5,9,85,26,789091819,0],[5,10,85,27,2081907104,1],[5,11,85,27,220763011,3],[5,12,85,27,1387808194,2],[5,13,85,27,875932532,2],[5,14,86,27,3691359110,3],[5,15,86,27,3893958090,1],[5,16,86,27,2265812371,3],[5,17,86,27,123001517,0],[5,18,87,27,659513779,3],[5,19,87,27,381429199,2],[5,20,87,27,2731713067,0],[6,1,89,26,3397835966,1],[6,2,89,26,752150570,2],[6,3,89,26,84799532,1],[6,4,89,26,2110388214,1],[6,5,90,26,2550993214,0],[6,6,90,26,2845477272,3],[6,7,90,26,3712483357,0],[6,8,91,26,1385340271,0],[6,9,91,26,459598210,0],[6,10,91,27,4245951108,2],[6,11,91,27,3580009083,2],[6,12,92,27,1990858450,0],[6,13,92,27,3405514437,3],[6,14,92,27,1014615449,0],[6,15,93,27,283715042,3],[6,16,93,27,1610657457,0],[6,17,94,27,3848767581,3],[6,18,94,27,751555176,1],[6,19,94,27,2579073665,0],[6,20,95,27,2579422568,1],[6,21,95,27,1685130917,3],[6,22,95,27,4249377515,2],[6,23,95,27,4227541023,2],[6,24,96,27,1149691498,2],[6,25,96,27,1441602813,1],[6,26,96,27,3893713721,1],[6,27,96,27,3695842966,3],[6,28,97,27,319873832,3],[6,29,97,27,519625015,2],[6,30,98,27,2551890412,1],[6,31,98,27,3154776679,1],[6,32,99,27,4160828262,1],[6,33,99,27,253638570,2],[6,34,99,27,2648715685,1],[6,35,99,27,1424455637,0],[6,36,99,27,2090266173,3],[6,37,100,27,1475928701,2],[6,38,100,27,744382513,1],[6,39,100,27,3591033996,0],[6,40,100,27,1805989455,3]];
+  // [area, pdfPage, anchorLength, anchorHash, [question numbers]]  shared reading texts (multirreactivos)
+  var CTXDATA = [[0,18,24,3137028740,[34,35,36,37]],[0,20,24,3137028740,[38,39,40]],[1,29,24,3137028740,[26,27]],[3,66,24,3137028740,[30,31,32]]];
+  var NOTES = {"mat-16":"Con los datos del enunciado, cos(∢ACB)·sin(∢ACB) = 0.6 × 0.8 = 0.48 y ese valor no aparece en las opciones. La clave oficial marca A, que es solo cos(∢ACB) = 0.60. Parece una errata del cuadernillo.","mat-23":"Tal como viene impresa, −2x² + 8x = −4 es una ecuación solo en x y no describe una trayectoria. Lo que quiere decir es la parábola y = −2x² + 8x + 4. Su punto más alto es el vértice: x = 2, y = 12, que es la D, la clave oficial.","exp-5":"Ninguna opción es del todo correcta. Lo correcto sería 1c, 2d, 3a, 4e, porque el núcleo guarda el ADN y los ribosomas sintetizan proteínas. La B acierta tres de cuatro. La clave oficial marca C, que solo cuadraría si los organelos 3 y 4 fueran ribosoma y lisosoma, así que parece una errata.","exp-22":"Clave discutible. En demografía la migración suele contarse como indicador demográfico y la morbilidad como indicador de salud, así que lo más defendible sería la C. La clave oficial marca B.","exp-28":"La respuesta esperada es la A, que es la clave oficial. Solo un detalle: el zinc tiene el subnivel 3d completo, así que la frase es exacta para el hierro pero no para el zinc.","exp-36":"La respuesta es la A, la clave oficial. Ojo con una errata del cuadernillo: el ion nitrito es NO₂⁻, con una sola carga negativa. Los pares conjugados son HNO₂ con NO₂⁻ y H₂O con H₃O⁺.","exp-60":"Ojo con el dato: el índice igual a 1 es el del aire, no el del vidrio. Con los valores dados, n = 0.79 ÷ 0.30 ≈ 2.63, que es la D, la clave oficial.","hum-28":"Clave discutible. Una promesa del tipo «si haces esto, pasa aquello» solo se rompe cuando se cumple la condición y aun así no pasa lo prometido, que es justo lo que le pasó a Mateo. Con lógica formal la razón es de Mateo y la mejor opción sería la B. La clave oficial marca A.","soc-2":"Clave dudosa. Lo que suele distinguir a las ciencias sociales de las humanidades es la comprobación empírica, que es la opción C, mientras que la D describe más bien a las humanidades. La clave oficial marca D.","soc-19":"Pregunta defectuosa. La igualdad ante la ley también quedó en la Constitución de 1857, que suprimió fueros y títulos de nobleza, así que la B es tan válida como la A. La clave oficial marca A.","trab-16":"Clave discutible. La Ley Federal del Trabajo, en su artículo 127 fracción I, deja fuera del reparto a directores, administradores y gerentes generales, así que la A también es defendible. La clave oficial marca D.","trab-17":"Pregunta ambigua. La Ley Federal del Trabajo pone esa misma obligación al patrón en el artículo 132 fracción I y al trabajador en el artículo 134 fracción I, así que la D también es correcta. La clave oficial marca A."};
+  // letters a note defends as also right (graded wrong, as in the exam, but not called "incorrect")
+  var ALTS = {"hum-28":[1],"exp-5":[1],"exp-22":[2],"soc-2":[2],"soc-19":[1],"trab-16":[0],"trab-17":[3]};
+  var PDF_PAGES = 157;
+  var KEY_PAGES = [145, 146, 147, 148, 149, 150, 151, 152];
+  var KEY_NAMES = ['matemáticas', 'humanidades', 'cienciasexperimentales', 'comunicación', 'cienciassociales', 'introducciónaltrabajo', 'recursoshumanos'];
+
+  var Q = QDATA.map(function (r, i) {
+    var id = AREAS[r[0]].id + '-' + r[1];
+    return { i: i, a: r[0], n: r[1], p: r[2], al: r[3], ah: r[4], k: r[5], ctx: -1, note: NOTES[id] || '', alt: ALTS[id] || [] };
+  });
+  var CTX = CTXDATA.map(function (r, ci) { return { ci: ci, a: r[0], p: r[1], al: r[2], ah: r[3], nums: r[4] }; });
+  CTX.forEach(function (c) {
+    c.nums.forEach(function (n) {
+      var q = Q.filter(function (q) { return q.a === c.a && q.n === n; })[0];
+      if (!q) throw new Error('ctx sin pregunta');
+      q.ctx = c.ci;
+    });
+  });
+  var PAGES = {};
+  Q.forEach(function (q) { (PAGES[q.p] = PAGES[q.p] || { qs: [], intro: null }).qs.push(q); });
+  CTX.forEach(function (c) { (PAGES[c.p] = PAGES[c.p] || { qs: [], intro: null }).intro = c; });
+  Object.keys(PAGES).forEach(function (p) { PAGES[p].qs.sort(function (x, y) { return x.n - y.n; }); });
+  var QUESTION_PAGES = Object.keys(PAGES).map(Number).sort(function (a, b) { return a - b; });
+
+  var SECTIONS = [{ id: 'all', name: 'Todas las áreas', pool: Q.map(function (q) { return q.i; }) }].concat(
+    AREAS.map(function (a, ai) { return { id: a.id, name: a.name, pool: Q.filter(function (q) { return q.a === ai; }).map(function (q) { return q.i; }) }; })
+  );
+  function section(id) { for (var s = 0; s < SECTIONS.length; s++) if (SECTIONS[s].id === id) return SECTIONS[s]; return null; }
+
+  // ---------------------------------------------------------------- randomness
+  // Uniform integers from the browser's cryptographic generator, with rejection
+  // sampling (no modulo bias). Fisher–Yates on top gives every order the same chance.
+  var _buf = new Uint32Array(64), _bufPos = 64;
+  function randU32() {
+    var c = (typeof globalThis !== 'undefined' && globalThis.crypto) || (typeof window !== 'undefined' && (window.crypto || window.msCrypto));
+    if (c && c.getRandomValues) {
+      if (_bufPos >= _buf.length) { c.getRandomValues(_buf); _bufPos = 0; }
+      return _buf[_bufPos++];
+    }
+    return Math.floor(Math.random() * 4294967296) >>> 0;
+  }
+  function randInt(n) {
+    if (!(n >= 1) || n > 4294967296 || Math.floor(n) !== n) throw new RangeError('randInt: ' + n);
+    var limit = 4294967296 - (4294967296 % n); // largest multiple of n that fits
+    var x;
+    do { x = randU32(); } while (x >= limit);
+    return x % n;
+  }
+  function shuffle(arr) {
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = randInt(i + 1);
+      var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    }
+    return arr;
+  }
+
+  // ---------------------------------------------------------------- text helpers
+  function norm(s) { return String(s).normalize('NFKC').replace(/\s+/g, '').toLowerCase(); }
+  function fnv1a(s) {
+    var h = 0x811c9dc5;
+    for (var ch of s) { h ^= ch.codePointAt(0); h = Math.imul(h, 0x01000193) >>> 0; }
+    return h >>> 0;
+  }
+  var DATA_HASH = fnv1a(JSON.stringify(QDATA) + JSON.stringify(CTXDATA)).toString(36);
+  function mul(m1, m2) {
+    return [m1[0] * m2[0] + m1[2] * m2[1], m1[1] * m2[0] + m1[3] * m2[1],
+            m1[0] * m2[2] + m1[2] * m2[3], m1[1] * m2[2] + m1[3] * m2[3],
+            m1[0] * m2[4] + m1[2] * m2[5] + m1[4], m1[1] * m2[4] + m1[3] * m2[5] + m1[5]];
+  }
+  // pdf.js textContent items -> simple boxes in viewport space (y grows downwards)
+  function toItems(tcItems, vt) {
+    var out = [], sx = Math.hypot(vt[0], vt[1]) || 1;
+    for (var k = 0; k < tcItems.length; k++) {
+      var it = tcItems[k];
+      if (!it || typeof it.str !== 'string' || !it.transform) continue;
+      var t = mul(vt, it.transform);
+      var fs = Math.abs(t[3]) || Math.hypot(t[2], t[3]);
+      if (!(fs > 0.5) || !(t[0] > 0)) continue;
+      if (Math.abs(t[1]) > 0.1 * t[0]) continue; // rotated or vertical text (never part of a question start)
+      out.push({ s: it.str, x: t[4], yb: t[5], w: (it.width || 0) * sx, fs: fs });
+    }
+    return out;
+  }
+
+  // ---------------------------------------------------------------- page layout
+  // Finds where each question starts on a page and returns vertical crop bands.
+  // spec = { qs: [{i, n, al, ah}], intro: {al, ah} | null }
+  function analyzeLayout(raw, W, H, spec) {
+    var its = [];
+    raw.forEach(function (r) {
+      if (!r || typeof r.s !== 'string' || !r.s.trim()) return;
+      if (!(r.fs > 0.5) || !isFinite(r.x) || !isFinite(r.yb)) return;
+      var fs = r.fs;
+      its.push({ s: r.s, x: r.x, x1: r.x + Math.max(0, r.w || 0), yb: r.yb, fs: fs,
+        tt: r.yb - 0.70 * fs, tb: r.yb + 0.20 * fs, lt: r.yb - 0.95 * fs, lb: r.yb + 0.28 * fs });
+    });
+    its.sort(function (a, b) { return (a.yb - b.yb) || (a.x - b.x); });
+    // the same glyph run drawn twice (fake bold, shadows) must count once
+    its = its.filter(function (it, k) {
+      for (var j = k - 1; j >= 0 && its[j].yb > it.yb - 0.5; j--) {
+        if (its[j].s === it.s && Math.abs(its[j].x - it.x) < 0.5 && Math.abs(its[j].yb - it.yb) < 0.5) return false;
+      }
+      return true;
+    });
+    // group into lines around the line's main run (the longest piece of text)
+    var lines = [];
+    its.forEach(function (it) {
+      var L = lines.length ? lines[lines.length - 1] : null;
+      if (L && Math.abs(it.yb - L.ref) <= 0.3 * Math.min(L.refFs, it.fs)) {
+        L.items.push(it);
+        if (it.fs > L.fs) L.fs = it.fs;
+        var len = it.s.replace(/\s+/g, '').length;
+        if (len > L.refLen) { L.ref = it.yb; L.refFs = it.fs; L.refLen = len; }
+      } else lines.push({ yb: it.yb, fs: it.fs, items: [it], ref: it.yb, refFs: it.fs, refLen: it.s.replace(/\s+/g, '').length });
+    });
+    lines.forEach(function (L) {
+      L.items.sort(function (a, b) { return a.x - b.x; });
+      L.text = L.items.map(function (i) { return i.s; }).join(' ');
+      L.n = norm(L.text);
+      L.yb = L.ref; L.fm = L.refFs;
+      L.x0 = Infinity; L.x1 = -Infinity; L.tt = Infinity; L.tb = -Infinity; L.lt = Infinity; L.lb = -Infinity;
+      L.items.forEach(function (i) {
+        L.x0 = Math.min(L.x0, i.x); L.x1 = Math.max(L.x1, i.x1);
+        L.tt = Math.min(L.tt, i.tt); L.tb = Math.max(L.tb, i.tb);
+        L.lt = Math.min(L.lt, i.lt); L.lb = Math.max(L.lb, i.lb);
+      });
+    });
+    lines.sort(function (a, b) { return a.yb - b.yb; });
+    var header = null, footer = null, k;
+    for (k = 0; k < lines.length; k++) if (lines[k].yb < H * 0.16 && /versióndepráctica|versiondepractica/.test(lines[k].n)) header = lines[k];
+    // the footer is the lowest line of the page (a lone page number below it is allowed)
+    for (k = lines.length - 1; k >= 0; k--) {
+      var Lk = lines[k];
+      if (/^\d{1,3}$/.test(Lk.n) && k === lines.length - 1) continue;
+      if (Lk.yb > H * 0.84 && /evaluacionesparciales/.test(Lk.n)) footer = Lk;
+      break;
+    }
+    var body = lines.filter(function (L) {
+      return L !== header && L !== footer && (!header || L.yb > header.yb) && (!footer || L.yb < footer.yb);
+    });
+    var bodyItems = [];
+    body.forEach(function (L) { L.items.forEach(function (i) { bodyItems.push(i); }); });
+
+    // --- question starts: pass 1 by anchor hash, pass 2 by number (only between found neighbours)
+    var qs = spec.qs || [];
+    var at = qs.map(function () { return -1; }), how = qs.map(function () { return 'none'; });
+    var from = 0;
+    qs.forEach(function (q, j) {
+      var pre = q.n + '.';
+      for (var b = from; b < body.length; b++) {
+        var n = body[b].n;
+        if (n.length >= q.al && n.lastIndexOf(pre, 0) === 0 && fnv1a(n.slice(0, q.al)) === q.ah) { at[j] = b; how[j] = 'hash'; from = b + 1; break; }
+      }
+    });
+    // number fallback only accepts lines aligned with the question-number column
+    // (inner numbered lists inside a question usually sit elsewhere)
+    var ax = [];
+    qs.forEach(function (q, j) { if (at[j] >= 0) ax.push(body[at[j]].x0); });
+    ax.sort(function (a, b) { return a - b; });
+    var col = ax.length ? ax[Math.floor(ax.length / 2)] : body.reduce(function (m, L) { return Math.min(m, L.x0); }, Infinity);
+    qs.forEach(function (q, j) {
+      if (at[j] >= 0) return;
+      var lo = -1, hi = body.length, x;
+      for (x = j - 1; x >= 0; x--) if (at[x] >= 0) { lo = at[x]; break; }
+      for (x = j + 1; x < qs.length; x++) if (at[x] >= 0) { hi = at[x]; break; }
+      var re = new RegExp('^' + q.n + '\\.(?!\\d)'), cands = [];
+      for (var b = lo + 1; b < hi; b++) {
+        if (re.test(body[b].n) && body[b].n.length >= 12 && Math.abs(body[b].x0 - col) <= 0.9 * body[b].fm) cands.push(b);
+      }
+      // every question ends with its option D, so prefer a candidate that comes after one
+      var pick = cands.length ? cands[0] : -1;
+      for (var ci = 0; ci < cands.length; ci++) {
+        var afterD = false;
+        for (var bb = lo + 1; bb < cands[ci]; bb++) if (/^d\)|^c\)\S{0,80}d\)/.test(body[bb].n)) { afterD = true; break; }
+        if (afterD) { pick = cands[ci]; break; }
+      }
+      if (pick >= 0) { at[j] = pick; how[j] = 'num'; }
+    });
+    var intro = null;
+    if (spec.intro) {
+      for (k = 0; k < body.length && !intro; k++) {
+        var n2 = body[k].n;
+        if (n2.length >= spec.intro.al && fnv1a(n2.slice(0, spec.intro.al)) === spec.intro.ah) intro = body[k];
+      }
+      for (k = 0; k < body.length && !intro; k++) {
+        if (/^leaelsiguientetexto/.test(body[k].n) && /conteste(los|las)(reactivos|preguntas)/.test(body[k].n)) intro = body[k];
+      }
+    }
+
+    // --- where a block begins: just above its first line, including the raised marks
+    //     (exponents, numerators, overlines, limits) that belong to that line, but never
+    //     anything of the previous text line
+    var topT = header ? header.tb : 0, topL = header ? header.lb : 0;
+    function boundaryOf(L) {
+      var f = L.fm, S = new Set(L.items), lo = L.yb - 3 * f, hi = L.yb + 3 * f;
+      var prevL = null;
+      body.forEach(function (B) {
+        if (B !== L && B.yb < L.yb - 0.9 * f && B.x0 <= L.x0 + 60 && (B.fm >= 0.85 * f || B.n.length >= 4) && (!prevL || B.yb > prevL.yb)) prevL = B;
+      });
+      var cand = bodyItems.filter(function (i) {
+        return !S.has(i) && i.yb >= lo && i.yb <= hi && (i.yb >= L.yb - 0.9 * f || i.fs < 0.85 * f) &&
+          (!prevL || i.yb > prevL.yb + 0.35 * prevL.fm);
+      });
+      var grew = true;
+      while (grew) {
+        grew = false;
+        for (var c = 0; c < cand.length; c++) {
+          var it = cand[c];
+          if (S.has(it)) continue;
+          for (var s of S) {
+            var ext = s.fs >= 1.25 * f ? 0.3 * s.fs : 0; // big operators reach higher than their box
+            if (it.tt < s.tb && s.tt - ext < it.tb) { S.add(it); grew = true; break; }
+          }
+        }
+      }
+      var ctt = Infinity, clt = Infinity;
+      S.forEach(function (s) { if (s.tt < ctt) ctt = s.tt; if (s.lt < clt) clt = s.lt; });
+      var ptb = topT, plb = topL;
+      bodyItems.forEach(function (i) { if (!S.has(i) && i.tb <= ctt + 1e-6) { if (i.tb > ptb) ptb = i.tb; if (i.lb > plb) plb = i.lb; } });
+      var bnd;
+      if (plb <= clt) bnd = clt - Math.min(0.3 * f, (clt - plb) / 2);
+      else bnd = (ctt + Math.min(ptb, ctt)) / 2;
+      if (prevL) bnd = Math.max(bnd, prevL.yb + 0.2 * prevL.fm); // never cut into the previous line
+      return Math.max(0, Math.min(H, bnd));
+    }
+
+    var elems = [];
+    qs.forEach(function (q, j) { if (at[j] >= 0) elems.push({ t: 'q', i: q.i, L: body[at[j]] }); });
+    if (intro) elems.push({ t: 'intro', L: intro });
+    elems.sort(function (a, b) { return a.L.yb - b.L.yb; });
+    elems.forEach(function (e) { e.y0 = boundaryOf(e.L); });
+    // a "Termina multirreactivo" label that is the last line of the page closes the block above it
+    var endMarker = body.length && /multir+eactivo/.test(body[body.length - 1].n) && elems.length && body[body.length - 1].yb > elems[elems.length - 1].L.yb ? body[body.length - 1] : null;
+    var maxBottom = 0;
+    bodyItems.forEach(function (i) { if (i.lb > maxBottom) maxBottom = i.lb; });
+    var pageBottom = endMarker ? boundaryOf(endMarker) : footer ? boundaryOf(footer) : Math.min(H, Math.max(H * 0.94, maxBottom + 12));
+    for (k = 0; k < elems.length; k++) {
+      var nb = k + 1 < elems.length ? elems[k + 1].y0 : pageBottom;
+      elems[k].y1 = Math.max(nb, elems[k].y0 + 12);
+      var tb = elems[k].L.lb;
+      bodyItems.forEach(function (i) { if (i.yb > elems[k].y0 && i.yb < elems[k].y1 && i.lb > tb && i.lb <= elems[k].y1 + 1) tb = i.lb; });
+      elems[k].tb = Math.min(tb, elems[k].y1);
+    }
+
+    var x0 = Infinity, x1 = -Infinity;
+    [header, footer].concat(body).forEach(function (L) { if (L) { x0 = Math.min(x0, L.x0); x1 = Math.max(x1, L.x1); } });
+    if (!isFinite(x0) || x1 - x0 < W * 0.3) { x0 = W * 0.06; x1 = W * 0.94; }
+    // pages use symmetric margins: this also protects the right edge if a PDF reports bad text widths
+    var mx = Math.min(x0, W - x1);
+    x0 = Math.max(0, mx - 9); x1 = Math.min(W, W - mx + 9);
+
+    var res = { W: W, H: H, x0: x0, x1: x1, header: !!header, footer: !!footer,
+      top: header ? Math.min(H, header.lb + 2) : 0, bottom: pageBottom, q: {}, how: {}, intro: null, nLines: lines.length };
+    qs.forEach(function (q, j) { res.how[q.i] = how[j]; });
+    elems.forEach(function (e) {
+      if (e.t === 'q') res.q[e.i] = { y0: e.y0, y1: e.y1, tb: e.tb };
+      else res.intro = { y0: e.y0, y1: e.y1, tb: e.tb };
+    });
+    return res;
+  }
+  function pageSpec(page) {
+    var P = PAGES[page];
+    if (!P) return { qs: [], intro: null };
+    return { qs: P.qs.map(function (q) { return { i: q.i, n: q.n, al: q.al, ah: q.ah }; }),
+             intro: P.intro ? { al: P.intro.al, ah: P.intro.ah } : null };
+  }
+  // Official answer key as printed on the PDF's "Claves de respuesta" pages
+  function parseKeys(lineTexts) {
+    var re = new RegExp('^(\\d{1,2})(' + KEY_NAMES.join('|') + ')([abcd])$'), out = [];
+    lineTexts.forEach(function (t) {
+      var m = re.exec(norm(t));
+      if (m) out.push({ a: KEY_NAMES.indexOf(m[2]), n: +m[1], k: 'abcd'.indexOf(m[3]) });
+    });
+    return out;
+  }
+  function linesOf(raw) { // plain line grouping for the key pages
+    var its = raw.filter(function (r) { return r && r.s && r.s.trim(); }).slice().sort(function (a, b) { return (a.yb - b.yb) || (a.x - b.x); });
+    var lines = [];
+    its.forEach(function (it) {
+      var L = lines.length ? lines[lines.length - 1] : null;
+      if (L && Math.abs(it.yb - L.yb) <= 0.3 * Math.max(L.fs, it.fs)) L.items.push(it);
+      else lines.push({ yb: it.yb, fs: it.fs, items: [it] });
+    });
+    return lines.map(function (L) { return L.items.sort(function (a, b) { return a.x - b.x; }).map(function (i) { return i.s; }).join(' '); });
+  }
+
+  // ---------------------------------------------------------------- rounds
+  function newRound(secId) {
+    var sec = section(secId);
+    if (!sec) throw new Error('sección desconocida');
+    return { v: 1, sec: secId, order: shuffle(sec.pool.slice()), pos: 0, ans: {}, t0: Date.now() };
+  }
+  function validRound(r) {
+    try {
+      var sec = section(r && r.sec);
+      if (!sec || r.v !== 1 || !Array.isArray(r.order) || r.order.length !== sec.pool.length) return false;
+      var inPool = {}, seen = {};
+      sec.pool.forEach(function (i) { inPool[i] = 1; });
+      for (var k = 0; k < r.order.length; k++) {
+        var x = r.order[k];
+        if (!inPool[x] || seen[x]) return false;
+        seen[x] = 1;
+      }
+      if (!(r.pos >= 0 && r.pos <= r.order.length) || Math.floor(r.pos) !== r.pos) return false;
+      if (!r.ans || typeof r.ans !== 'object' || Array.isArray(r.ans)) return false;
+      for (var key in r.ans) {
+        var c = r.ans[key];
+        if (!seen[key] || !(c === 0 || c === 1 || c === 2 || c === 3)) return false;
+      }
+      return true;
+    } catch (e) { return false; }
+  }
+  function answer(r, qi, c) {
+    if (r.order[r.pos] !== qi) return false;
+    if (r.ans[qi] !== undefined) return false;
+    if (!(c === 0 || c === 1 || c === 2 || c === 3)) return false;
+    r.ans[qi] = c;
+    return true;
+  }
+  function answeredCount(r) { var n = 0; r.order.forEach(function (qi) { if (r.ans[qi] !== undefined) n++; }); return n; }
+  function grade(r, keys) {
+    var by = AREAS.map(function (a, ai) { return { a: ai, c: 0, n: 0 }; }), c = 0, n = 0, wrong = [];
+    r.order.forEach(function (qi) {
+      var x = r.ans[qi];
+      if (x === undefined) return;
+      var q = Q[qi];
+      by[q.a].n++; n++;
+      if (x === keys[qi]) { by[q.a].c++; c++; } else wrong.push(qi);
+    });
+    return { c: c, n: n, by: by.filter(function (b) { return b.n > 0; }), wrong: wrong };
+  }
+  // shown with one decimal, rounded down so a failing score never displays as 6.0
+  function grade10(c, n) { return n ? Math.floor(c * 100 / n + 1e-9) / 10 : null; }
+  function passes(c, n) { return n > 0 && c * 10 >= 6 * n; }
+
+  return {
+    AREAS: AREAS, Q: Q, CTX: CTX, PAGES: PAGES, QUESTION_PAGES: QUESTION_PAGES, SECTIONS: SECTIONS, section: section,
+    PDF_PAGES: PDF_PAGES, KEY_PAGES: KEY_PAGES, DATA_HASH: DATA_HASH,
+    randU32: randU32, randInt: randInt, shuffle: shuffle,
+    norm: norm, fnv1a: fnv1a, toItems: toItems, analyzeLayout: analyzeLayout, pageSpec: pageSpec, parseKeys: parseKeys, linesOf: linesOf,
+    newRound: newRound, validRound: validRound, answer: answer, answeredCount: answeredCount, grade: grade, grade10: grade10, passes: passes
+  };
+})();
+/*CORE-END*/
+
+(function () {
+  'use strict';
+  var C = CORE, LETTERS = 'ABCD';
+  var $ = function (id) { return document.getElementById(id); };
+  try { document.documentElement.lang = 'es'; } catch (e) {}
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function plural(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
+  // tap guards use a clock that never jumps, so a corrected phone clock can't freeze the buttons
+  var now = (typeof performance !== 'undefined' && performance && typeof performance.now === 'function')
+    ? function () { return performance.now(); } : function () { return Date.now(); };
+
+  // ---------------------------------------------------------------- app state
+  var app = {
+    doc: null, keys: C.Q.map(function (q) { return q.k; }), keySource: 'app', check: null,
+    layouts: {}, screen: '', screenAt: -1e9, round: null, mode: 'quiz', // quiz | review | browse
+    review: null, summary: null, renderSeq: 0, tasks: [], shownAt: -1e9, curRegion: null, curCtx: null,
+    loadToken: 0, renderedW: 0, pageLRU: [], savedPdf: false, bootMsg: '', closeGuardUntil: -1e9, now: now
+  };
+  function isActive(sec) { return app.screen === 'scr-quiz' && app.mode === 'quiz' && app.round && app.round.sec === sec; }
+
+  // ---------------------------------------------------------------- persistence
+  // One localStorage record; every save merges per section, so two tabs never erase each other.
+  var LS_KEY = 'practica-exacer-2025.v1', ZOOM_KEY = 'practica-exacer-2025.zoom', ROT_KEY = 'practica-exacer-2025.rot';
+  var SAVED_KEY = 'practica-exacer-2025.saved', VIEW_KEY = 'practica-exacer-2025.view';
+  function isInt(x, lo, hi) { return typeof x === 'number' && Math.floor(x) === x && x >= lo && x <= hi; }
+  function isNum(x) { return typeof x === 'number' && isFinite(x); }
+  function cleanAns(sec, ans) {
+    if (!ans || typeof ans !== 'object' || Array.isArray(ans)) return null;
+    var inPool = {}, out = {}, n = 0;
+    sec.pool.forEach(function (i) { inPool[i] = 1; });
+    for (var k in ans) {
+      if (!Object.prototype.hasOwnProperty.call(ans, k)) continue;
+      var c = ans[k];
+      if (!inPool[k] || !(c === 0 || c === 1 || c === 2 || c === 3)) return null;
+      out[k] = c; n++;
+    }
+    return n ? out : null;
+  }
+  function cleanState(s) {
+    var out = { v: 1, rounds: {}, last: {}, check: null };
+    if (!s || typeof s !== 'object' || s.v !== 1) return out;
+    if (s.rounds && typeof s.rounds === 'object' && !Array.isArray(s.rounds)) {
+      Object.keys(s.rounds).forEach(function (k) { var r = s.rounds[k]; if (C.validRound(r) && r.sec === k) out.rounds[k] = r; });
+    }
+    if (s.last && typeof s.last === 'object' && !Array.isArray(s.last)) {
+      Object.keys(s.last).forEach(function (k) {
+        var l = s.last[k], sec = C.section(k);
+        if (!sec || !l || !isInt(l.n, 1, sec.pool.length) || !isInt(l.c, 0, l.n)) return;
+        var o = { c: l.c, n: l.n, total: isInt(l.total, l.n, sec.pool.length) ? l.total : l.n, t: isNum(l.t) ? l.t : 0 };
+        if (isNum(l.t0)) o.t0 = l.t0;
+        if (k === 'all' && isInt(l.areas, 1, C.AREAS.length) && isInt(l.ok, 0, l.areas)) { o.areas = l.areas; o.ok = l.ok; }
+        out.last[k] = o;
+      });
+    }
+    if (s.check && typeof s.check === 'object' && !Array.isArray(s.check)) out.check = s.check;
+    return out;
+  }
+  // the results on screen are kept per tab (sessionStorage), so a reload brings them back
+  // without another tab ever opening on them
+  function readView() {
+    try {
+      var v = JSON.parse(sessionStorage.getItem(VIEW_KEY) || 'null'), sec = v && C.section(v.sec), ans = sec && cleanAns(sec, v.ans);
+      if (ans && v.total === sec.pool.length) return { sec: v.sec, ans: ans, total: v.total, t0: isNum(v.t0) ? v.t0 : 0 };
+    } catch (e) {}
+    return null;
+  }
+  function writeView(v) { try { if (v) sessionStorage.setItem(VIEW_KEY, JSON.stringify(v)); else sessionStorage.removeItem(VIEW_KEY); } catch (e) {} }
+  function savedFlag() { try { return localStorage.getItem(SAVED_KEY) === '1'; } catch (e) { return false; } }
+  function setSavedFlag(v) { try { if (v) localStorage.setItem(SAVED_KEY, '1'); else localStorage.removeItem(SAVED_KEY); } catch (e) {} }
+  function readStored() { try { return cleanState(JSON.parse(localStorage.getItem(LS_KEY) || 'null')); } catch (e) { return cleanState(null); } }
+  var state = readStored();
+  var dirty = { rounds: {}, last: {}, check: false };
+  var storageOk = true;
+  // removing a round names the round (its t0), so a newer round saved by another tab is never removed
+  function setRound(sec, r, delT0) { if (r) { state.rounds[sec] = r; dirty.rounds[sec] = 1; } else { delete state.rounds[sec]; dirty.rounds[sec] = { del: delT0 }; } }
+  function setLast(sec, l) { state.last[sec] = l; dirty.last[sec] = 1; }
+  function saveState() {
+    var cur = readStored(), ok = true;
+    Object.keys(dirty.rounds).forEach(function (k) {
+      var mine = state.rounds[k], st = cur.rounds[k], d = dirty.rounds[k];
+      if (mine) {
+        // never replace a newer round, or this same round with more progress, saved elsewhere
+        if (!st || st.t0 < mine.t0 || (st.t0 === mine.t0 && st.pos <= mine.pos && C.answeredCount(st) <= C.answeredCount(mine))) cur.rounds[k] = mine;
+      } else if (st && d && typeof d === 'object' && st.t0 <= d.del) delete cur.rounds[k];
+    });
+    Object.keys(dirty.last).forEach(function (k) { var l = state.last[k], st = cur.last[k]; if (l && !(st && (st.t0 || 0) > (l.t0 || 0))) cur.last[k] = l; });
+    if (dirty.check) cur.check = state.check;
+    try { localStorage.setItem(LS_KEY, JSON.stringify(cur)); } catch (e) { ok = false; }
+    if (ok) {
+      dirty = { rounds: {}, last: {}, check: false };
+      adopt(cur);
+    }
+    storageOk = ok;
+    return ok;
+  }
+  // take what other tabs saved, except the round being played here
+  function adopt(cur) {
+    Object.keys(cur.rounds).forEach(function (k) { if (!isActive(k) && !dirty.rounds[k]) state.rounds[k] = cur.rounds[k]; });
+    Object.keys(state.rounds).forEach(function (k) { if (!cur.rounds[k] && !isActive(k) && !dirty.rounds[k]) delete state.rounds[k]; });
+    Object.keys(cur.last).forEach(function (k) { if (!dirty.last[k]) state.last[k] = cur.last[k]; });
+    if (!dirty.check && cur.check) state.check = cur.check;
+  }
+  // The round shown here may have been moved on in another tab, or by this same page before the
+  // phone froze it. Rounds are told apart by t0 (when they started): a newer round of the same area
+  // or a finished one makes this copy obsolete; for the same round, the copy with more progress wins.
+  function syncActive() {
+    var r = app.round;
+    if (!r) return 'ok';
+    var cur = readStored(), sr = cur.rounds[r.sec], l = cur.last[r.sec];
+    if (l && l.t0 === r.t0) return 'finished';
+    if ((l && l.t0 > r.t0) || (sr && sr.t0 > r.t0)) return 'replaced';
+    if (sr && sr.t0 === r.t0) {
+      if (sr.pos >= sr.order.length) return 'finished';
+      if (sr.pos > r.pos || C.answeredCount(sr) > C.answeredCount(r)) { app.round = sr; state.rounds[r.sec] = sr; delete dirty.rounds[r.sec]; return 'moved'; }
+    }
+    return 'ok';
+  }
+  function roundGone(why) {
+    var sec = app.round.sec;
+    cancelRenders();
+    delete state.rounds[sec]; delete dirty.rounds[sec];
+    app.round = null;
+    renderHome(why === 'finished' ? 'Esa ronda ya la terminaste en otra pestaña.' : 'En otra pestaña empezaste otra ronda de esta área.');
+  }
+  function refreshFromStorage() {
+    adopt(readStored());
+    if (app.screen === 'scr-home') { renderHome(null, true); return; }
+    if (app.screen !== 'scr-quiz' || app.mode !== 'quiz' || !app.round || ov.open) return;
+    var s = syncActive();
+    if (s === 'moved') renderQuestion();
+    else if (s !== 'ok') roundGone(s);
+  }
+  window.addEventListener('storage', function (e) { if (e.key === LS_KEY || e.key === null) refreshFromStorage(); });
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') refreshFromStorage(); });
+  window.addEventListener('pageshow', function (e) { if (e.persisted) refreshFromStorage(); });
+
+  var IDB_NAME = 'practica-exacer', IDB_STORE = 'files', IDB_KEY = 'version-practica-2025';
+  // A timer that only counts while the page is on screen: a phone freezes pages in the background,
+  // and time spent in another app must not turn a slow load into an error. Any change of visibility
+  // restarts the count, so after coming back the whole wait runs again. A page that the browser
+  // keeps calling hidden forever still gets its answer after 20 minutes.
+  var visAt = -1e9;
+  document.addEventListener('visibilitychange', function () { visAt = now(); });
+  function visibleTimer(fn, ms) {
+    var h = { t: 0 }, born = now();
+    (function arm() {
+      var start = now();
+      h.t = setTimeout(function () {
+        if ((document.visibilityState === 'hidden' || visAt >= start) && now() - born < 1200000) { arm(); return; }
+        fn();
+      }, ms);
+    })();
+    return h;
+  }
+  function stopTimer(h) { if (h) clearTimeout(h.t); }
+  function withTimeout(p, ms) {
+    return new Promise(function (res, rej) {
+      var t = visibleTimer(function () { rej(new Error('timeout')); }, ms);
+      p.then(function (v) { stopTimer(t); res(v); }, function (e) { stopTimer(t); rej(e); });
+    });
+  }
+  function idb() {
+    return new Promise(function (res, rej) {
+      try {
+        var r = indexedDB.open(IDB_NAME, 1);
+        r.onupgradeneeded = function () { r.result.createObjectStore(IDB_STORE); };
+        r.onsuccess = function () { res(r.result); };
+        r.onerror = function () { rej(r.error); };
+        r.onblocked = function () { rej(new Error('blocked')); };
+      } catch (e) { rej(e); }
+    });
+  }
+  function idbDo(mode, fn) {
+    return idb().then(function (db) {
+      return new Promise(function (res, rej) {
+        var tx, out;
+        try { tx = db.transaction(IDB_STORE, mode); } catch (e) { db.close(); rej(e); return; }
+        var req;
+        try { req = fn(tx.objectStore(IDB_STORE)); } catch (e) { try { tx.abort(); } catch (e2) {} db.close(); rej(e); return; }
+        if (req) req.onsuccess = function () { out = req.result; };
+        tx.oncomplete = function () { db.close(); res(out); };
+        tx.onerror = tx.onabort = function () { db.close(); rej(tx.error || new Error('idb')); };
+      });
+    });
+  }
+  function idbGet() { return idbDo('readonly', function (st) { return st.get(IDB_KEY); }); }
+  function idbPut(v) { return withTimeout(idbDo('readwrite', function (st) { return st.put(v, IDB_KEY); }), 30000).then(function () { return true; }, function () { return false; }); }
+  function idbDel() { return withTimeout(idbDo('readwrite', function (st) { return st.delete(IDB_KEY); }), 6000).catch(function () {}); }
+
+  // ---------------------------------------------------------------- screens
+  function show(id) {
+    ['scr-setup', 'scr-busy', 'scr-home', 'scr-quiz', 'scr-sum', 'scr-diag'].forEach(function (s) { $(s).hidden = s !== id; });
+    app.screen = id; app.screenAt = now();
+    app.shownKey = ''; // coming into the questions always counts as a question newly shown
+    // a "tap again to confirm" never survives a change of screen
+    Array.prototype.forEach.call(document.querySelectorAll('[data-armed="1"]'), function (b) { if (b._normalText) disarm(b, b._normalText); });
+    window.scrollTo(0, 0);
+  }
+  function busy(title, frac) {
+    show('scr-busy');
+    $('busy-title').innerHTML = '<b>' + esc(title) + '</b>';
+    busyUpdate(frac);
+  }
+  function busyUpdate(frac) {
+    var ind = frac === null || frac === undefined;
+    $('busy-prog').classList.toggle('ind', ind);
+    $('busy-bar').style.width = ind ? '' : Math.round(frac * 100) + '%';
+    $('busy-sub').textContent = ind ? '' : Math.round(frac * 100) + '%';
+  }
+  function setupError(t) {
+    show('scr-setup');
+    var m = $('setup-msg');
+    m.textContent = t; m.hidden = !t;
+    if (t) setTimeout(function () { try { m.scrollIntoView({ block: 'center' }); } catch (e) {} }, 30);
+  }
+
+  // ---------------------------------------------------------------- PDF
+  var READER_MSG = 'No se pudo cargar el lector de PDF. Revisa la conexión y recarga la página.';
+  function pdfReady() { return typeof window.pdfjsLib !== 'undefined' && window.pdfjsLib.getDocument; }
+  if (pdfReady()) window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  function openPdf(buf) {
+    var data = new Uint8Array(buf.slice(0));
+    var task = window.pdfjsLib.getDocument({ data: data, isEvalSupported: false, useSystemFonts: true });
+    // a reader that never finishes loading (stalled connection) must not leave the screen spinning forever
+    return withTimeout(task.promise, 45000).catch(function (e) {
+      if (e && e.message === 'timeout') { try { task.destroy(); } catch (e2) {} throw new Error('worker timeout'); }
+      throw e;
+    });
+  }
+  function destroyDoc(doc) { try { if (doc && doc.destroy) doc.destroy(); } catch (e) {} }
+  function setDoc(doc, layouts) {
+    if (app.doc && app.doc !== doc) destroyDoc(app.doc);
+    app.doc = doc; app.layouts = layouts || {}; app.pageLRU = [];
+  }
+  function pdfErrorText(e) {
+    var m = String((e && (e.message || e.name)) || '');
+    if (/worker/i.test(m)) return READER_MSG;
+    if (e && e.name === 'PasswordException') return 'Ese PDF tiene contraseña. Usa el archivo del enlace oficial.';
+    return 'No se pudo abrir el archivo como PDF.';
+  }
+  function pageItems(page) {
+    var vp = page.getViewport({ scale: 1 });
+    return page.getTextContent().then(function (tc) { return { vp: vp, items: C.toItems(tc.items, vp.transform) }; });
+  }
+  function computeLayout(doc, p) {
+    return doc.getPage(p).then(pageItems).then(function (r) { return C.analyzeLayout(r.items, r.vp.width, r.vp.height, C.pageSpec(p)); });
+  }
+  function layoutOf(p) {
+    var map = app.layouts, doc = app.doc;
+    if (!doc) return Promise.reject(new Error('sin PDF'));
+    if (!map[p]) {
+      var pr = computeLayout(doc, p);
+      map[p] = pr;
+      pr.catch(function () { if (map[p] === pr) delete map[p]; });
+    }
+    return map[p];
+  }
+  // pages keep heavy render data cached inside pdf.js; free the ones not used recently
+  function touchPage(pg) {
+    var n = pg.pageNumber, lru = app.pageLRU, i = lru.indexOf(n);
+    if (i >= 0) lru.splice(i, 1);
+    lru.push(n);
+    while (lru.length > 4) {
+      var old = lru.shift();
+      if (app.doc) app.doc.getPage(old).then(function (p) { try { p.cleanup(); } catch (e) {} }, function () {});
+    }
+  }
+
+  // Full check: is this the right PDF? where is every question? does the key match?
+  function checkDoc(doc, map, onProgress) {
+    var pages = C.QUESTION_PAGES, located = 0, how = {}, done = 0, total = pages.length + C.KEY_PAGES.length;
+    var chain = Promise.resolve();
+    pages.forEach(function (p) {
+      chain = chain.then(function () {
+        if (!map[p]) map[p] = computeLayout(doc, p);
+        return map[p].catch(function () { return null; });
+      }).then(function (L) {
+        C.PAGES[p].qs.forEach(function (q) {
+          var h = L && L.how[q.i] ? L.how[q.i] : 'none';
+          how[q.i] = h; if (h !== 'none') located++;
+        });
+        done++; if (onProgress) onProgress(done / total);
+      });
+    });
+    var parsed = [];
+    C.KEY_PAGES.forEach(function (p) {
+      chain = chain.then(function () { return doc.getPage(p).then(pageItems).catch(function () { return { items: [] }; }); }).then(function (r) {
+        parsed = parsed.concat(C.parseKeys(C.linesOf(r.items)));
+        done++; if (onProgress) onProgress(done / total);
+      });
+    });
+    return chain.then(function () {
+      var pdfKeys = C.Q.map(function () { return -1; }), nParsed = 0, diff = [];
+      parsed.forEach(function (x) {
+        var q = C.Q.filter(function (q) { return q.a === x.a && q.n === x.n; })[0];
+        if (q && pdfKeys[q.i] === -1) { pdfKeys[q.i] = x.k; nParsed++; }
+      });
+      C.Q.forEach(function (q) { if (pdfKeys[q.i] !== -1 && pdfKeys[q.i] !== q.k) diff.push(q.i); });
+      return { located: located, total: C.Q.length, how: how, keysParsed: nParsed, keyDiff: diff, pdfKeys: pdfKeys };
+    });
+  }
+  // The right PDF: almost every question found, or its own answer table read and matching ours
+  // (then questions that can't be cropped are shown with their whole page instead of rejecting the file).
+  function looksRight(chk) {
+    var n = C.Q.length;
+    return chk.located >= Math.round(n * 0.9) || (chk.keysParsed >= Math.round(n * 0.9) && chk.keyDiff.length <= Math.round(n * 0.05));
+  }
+  function applyCheck(chk) {
+    // The PDF's own key wins only if it was read completely (e.g. a corrected reprint).
+    var full = chk.pdfKeys.every(function (k) { return k >= 0 && k <= 3; });
+    if (full) { app.keys = chk.pdfKeys.slice(); app.keySource = chk.keyDiff.length ? 'pdf' : 'both'; }
+    else { app.keys = C.Q.map(function (q) { return q.k; }); app.keySource = 'app'; }
+    app.check = chk;
+  }
+  // changes whenever the data or the code that reads the PDF change, so a saved summary is never stale
+  var CHECK_VERSION = '3-' + C.DATA_HASH + '-' + C.fnv1a([C.toItems, C.analyzeLayout, C.parseKeys, C.linesOf, C.pageSpec, checkDoc].map(String).join('|')).toString(36);
+  function fingerprint(doc, nBytes) { return ((doc && doc.fingerprints) || []).filter(Boolean).join('|') + '#' + (nBytes || 0); }
+  function rememberCheck(doc, chk, nBytes) {
+    state.check = { cv: CHECK_VERSION, fp: fingerprint(doc, nBytes), located: chk.located, total: chk.total, how: chk.how,
+      keysParsed: chk.keysParsed, keyDiff: chk.keyDiff, pdfKeys: chk.pdfKeys, t: Date.now() };
+    dirty.check = true;
+    saveState();
+  }
+  function cachedCheck(doc, c, nBytes) {
+    if (!c || typeof c !== 'object' || c.cv !== CHECK_VERSION || c.fp !== fingerprint(doc, nBytes) || c.total !== C.Q.length) return null;
+    if (!Array.isArray(c.pdfKeys) || c.pdfKeys.length !== C.Q.length || !c.pdfKeys.every(function (k) { return isInt(k, -1, 3); })) return null;
+    if (!c.how || typeof c.how !== 'object') return null;
+    var located = 0, diff = [], parsed = 0;
+    for (var i = 0; i < C.Q.length; i++) {
+      var h = c.how[i];
+      if (h !== 'hash' && h !== 'num' && h !== 'none') return null;
+      if (h !== 'none') located++;
+    }
+    if (located !== c.located) return null;
+    C.Q.forEach(function (q) { var k = c.pdfKeys[q.i]; if (k >= 0) { parsed++; if (k !== q.k) diff.push(q.i); } });
+    // everything that can be derived is derived again, so a damaged record can't contradict itself
+    return { located: located, total: C.Q.length, how: c.how, keysParsed: parsed, keyDiff: diff, pdfKeys: c.pdfKeys.slice() };
+  }
+  function isPdfHeader(buf) {
+    var u = new Uint8Array(buf), s = '';
+    for (var i = 0; i < u.length; i++) s += String.fromCharCode(u[i]);
+    return s.indexOf('%PDF') >= 0;
+  }
+
+  function handleFile(file) {
+    if (!file) return;
+    var token = ++app.loadToken, doc = null, buf = null;
+    $('setup-msg').hidden = true;
+    if (!pdfReady()) { setupError(READER_MSG); return; }
+    if (!file.size) { setupError('El archivo está vacío.'); return; }
+    busy('Leyendo el PDF…', null);
+    file.slice(0, 1024).arrayBuffer().then(function (head) {
+      if (!isPdfHeader(head)) throw { user: 'Ese archivo no es un PDF.' };
+      if (file.size > 60 * 1024 * 1024) throw { user: 'Ese archivo es demasiado grande para ser el PDF de práctica.' };
+      return file.arrayBuffer();
+    }).then(function (b) {
+      if (token !== app.loadToken) throw { stale: true };
+      buf = b;
+      return openPdf(b).catch(function (e) { throw { user: pdfErrorText(e) }; });
+    }).then(function (d) {
+      doc = d;
+      if (token !== app.loadToken) throw { stale: true };
+      if (d.numPages !== C.PDF_PAGES) {
+        throw { user: 'Este PDF tiene ' + plural(d.numPages, 'página', 'páginas') + ' y la Versión de práctica 2025 tiene ' + C.PDF_PAGES + '. Usa el archivo Version_práctica.pdf del enlace oficial.' };
+      }
+      busy('Buscando las 272 preguntas…', 0);
+      var map = {};
+      return checkDoc(d, map, function (f) { if (token === app.loadToken) busyUpdate(f); }).then(function (chk) {
+        if (token !== app.loadToken) throw { stale: true };
+        if (!looksRight(chk)) throw { user: 'Este PDF no es la Versión de práctica 2025. Usa el archivo del enlace oficial.' };
+        setDoc(d, map); doc = null; writeView(null);
+        applyCheck(chk);
+        rememberCheck(app.doc, chk, buf.byteLength);
+        renderHome('');
+        // stored in the background: slow or stuck storage must not keep him waiting
+        idbPut({ name: file.name, size: buf.byteLength, t: Date.now(), data: buf, check: state.check }).then(function (saved) {
+          if (token !== app.loadToken) return;
+          app.savedPdf = !!saved;
+          setSavedFlag(saved);
+          if (saved) return;
+          var m = 'No se pudo guardar el PDF en este navegador, quizá por estar en modo privado. Funciona igual, pero la próxima vez tendrás que cargarlo de nuevo.';
+          if (app.screen === 'scr-home') { homeMsg = m; renderHome(null, true); } else app.pendingMsg = m;
+        });
+      });
+    }).catch(function (e) {
+      if (doc) destroyDoc(doc);
+      if ((e && e.stale) || token !== app.loadToken) return;
+      setupError((e && e.user) || 'Algo falló al leer el PDF. Prueba de nuevo.');
+    });
+  }
+
+  // ---------------------------------------------------------------- home
+  var homeMsg = '';
+  app.pendingMsg = '';
+  function sectionState(sec) {
+    var r = state.rounds[sec.id];
+    if (r && r.pos < r.order.length && C.answeredCount(r) > 0) return { r: r, cont: true };
+    return { r: null, cont: false };
+  }
+  // quiet: refresh what's listed (another tab saved) without scrolling, re-arming the tap guard or dropping the message
+  function renderHome(message, quiet) {
+    if (!app.doc) { setupError(app.bootMsg || ''); return; }
+    if (!quiet) { adopt(readStored()); homeMsg = message || app.pendingMsg || ''; app.pendingMsg = ''; }
+    var act = document.activeElement, focusSec = quiet && act && act.dataset ? act.dataset.sec : null;
+    var chk = app.check, notes = [];
+    if (homeMsg) notes.push(homeMsg);
+    if (!storageOk) notes.push('El avance no se está guardando en este navegador. Puede ser el modo privado o falta de espacio.');
+    if (chk && chk.located < chk.total) notes.push('Hay ' + plural(chk.total - chk.located, 'pregunta que no se pudo recortar: se mostrará', 'preguntas que no se pudieron recortar: se mostrarán') + ' con la página completa.');
+    if (chk && app.keySource === 'pdf') notes.push('Las claves de tu PDF difieren en ' + plural(chk.keyDiff.length, 'pregunta', 'preguntas') + ' de las que traía la app. Se usan las de tu PDF.');
+    if (chk && app.keySource === 'app' && chk.keyDiff.length) notes.push('Tu PDF marca otra clave en ' + plural(chk.keyDiff.length, 'pregunta', 'preguntas') + ' y no se pudo leer su tabla completa. Se usan las claves de la app.');
+    $('home-msg').hidden = !notes.length;
+    $('home-msg').textContent = notes.join(' ');
+
+    var all = C.section('all'), s0 = sectionState(all);
+    $('sec-all-box').innerHTML =
+      '<button class="sec-all" data-sec="all">' +
+        '<span class="sec-main"><span class="t">Todas las áreas</span>' +
+        (s0.cont ? contTxt(s0) : '<span class="sec-meta tnum">' + all.pool.length + ' preguntas mezcladas</span>') + lastTxt('all') + '</span>' +
+        '<span class="sec-go" aria-hidden="true">›</span>' +
+      '</button>';
+    var html = '';
+    C.AREAS.forEach(function (a) {
+      var sec = C.section(a.id), s = sectionState(sec);
+      html += '<button class="sec-row" data-sec="' + a.id + '">' +
+        '<span class="sec-main"><span class="sec-name">' + esc(a.name) + '</span>' +
+        (s.cont ? contTxt(s) : '<span class="sec-meta tnum">' + sec.pool.length + ' preguntas</span>') + lastTxt(a.id) + '</span>' +
+        '<span class="sec-go" aria-hidden="true">›</span></button>';
+    });
+    $('sec-list').innerHTML = html;
+    if (!quiet || app.screen !== 'scr-home') { show('scr-home'); return; }
+    if (focusSec) { var el = document.querySelector('[data-sec="' + focusSec + '"]'); if (el) try { el.focus({ preventScroll: true }); } catch (e) {} }
+  }
+  function contTxt(s) { return '<span class="sec-cont tnum">Continuar: vas en la ' + (s.r.pos + 1) + ' de ' + s.r.order.length + '</span>'; }
+  function lastTxt(id) {
+    var l = state.last[id];
+    if (!l || !l.n) return '';
+    var t = 'Última ronda' + (l.total > l.n ? ' incompleta' : '') + ': ';
+    if (id === 'all' && l.areas) t += l.ok + ' de ' + l.areas + (l.areas === 1 ? ' área aprobada' : ' áreas aprobadas');
+    else t += C.grade10(l.c, l.n).toFixed(1) + ' · ' + l.c + ' de ' + l.n + ' correctas';
+    return '<span class="sec-last tnum">' + esc(t) + '</span>';
+  }
+
+  // ---------------------------------------------------------------- rounds
+  function startSection(id, fresh) {
+    adopt(readStored()); // pick up what another tab (or this page before it was frozen) saved
+    var r = state.rounds[id], live = r && r.pos < r.order.length && C.answeredCount(r) > 0;
+    // "Nueva ronda" never throws away a newer round that is being played in another tab
+    if (fresh && live && app.summary && app.summary.sec === id && r.t0 > (app.summary.t0 || 0)) fresh = false;
+    if (fresh || !live) {
+      var prev = Math.max((state.last[id] && state.last[id].t0) || 0, (r && r.t0) || 0);
+      r = C.newRound(id);
+      if (r.t0 <= prev) r.t0 = prev + 1; // a phone clock set back must not make the new round look older
+      setRound(id, r);
+    }
+    app.round = r; app.mode = 'quiz';
+    writeView(null);
+    show('scr-quiz');
+    saveState();
+    renderQuestion();
+  }
+  function curQi() {
+    if (app.mode === 'quiz') return app.round.order[app.round.pos];
+    return app.review.list[app.review.pos];
+  }
+
+  // ---------------------------------------------------------------- rendering of PDF regions
+  function cancelRenders() {
+    app.renderSeq++;
+    app.tasks.forEach(function (t) { try { t.cancel(); } catch (e) {} });
+    app.tasks = [];
+  }
+  function releaseCanvases(box) {
+    if (!box) return;
+    Array.prototype.forEach.call(box.querySelectorAll('canvas'), function (c) { c.width = 0; c.height = 0; });
+  }
+  // Removes the blank strip a crop may carry below its last mark (the last question of a page
+  // reaches down to the footer). Reads real pixels at full resolution, so thin figure lines stay,
+  // and never cuts above the last line of text found by the layout.
+  function trimBottom(cv, dpr, keepPx) {
+    try {
+      var ctx = cv.getContext('2d'), W = cv.width, H = cv.height, last = -1, STRIP = 64;
+      for (var top = H; top > 0 && last < 0; top -= STRIP) {
+        var y0 = Math.max(0, top - STRIP), h = top - y0, d = ctx.getImageData(0, y0, W, h).data;
+        for (var y = h - 1; y >= 0 && last < 0; y--) {
+          for (var o = y * W * 4, end = o + W * 4; o < end; o += 4) {
+            if (d[o] < 246 || d[o + 1] < 246 || d[o + 2] < 246) { last = y0 + y; break; }
+          }
+        }
+      }
+      if (last < 0) return cv;
+      var bot = Math.min(H, Math.max(last + 1, keepPx || 0) + Math.round(12 * dpr));
+      if (bot >= H * 0.97) return cv;
+      var made = newCanvas(W, bot); // no memory for the copy: keep the uncut drawing, never a blank one
+      if (!made) return cv;
+      made.ctx.drawImage(cv, 0, 0, W, bot, 0, 0, W, bot);
+      cv.width = 0; cv.height = 0;
+      return made.cv;
+    } catch (e) { return cv; }
+  }
+  // the most pixels one canvas may hold: phones and tablets close a page that piles up big canvases
+  var MAX_PX = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) ? 8e6 : 16e6;
+  function cancelled() { var e = new Error('cancelled'); e.name = 'RenderingCancelledException'; return e; }
+  // a white canvas of w×h, or null when the browser can't give that much memory (it then hands
+  // back a canvas that draws nothing, which would show a blank question)
+  function newCanvas(w, h) {
+    var cv = document.createElement('canvas');
+    cv.width = w; cv.height = h;
+    var ctx = null;
+    try { ctx = cv.getContext('2d', { alpha: false }); } catch (e) {}
+    if (ctx) {
+      ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h);
+      try { if (ctx.getImageData(0, 0, 1, 1).data[3] === 255) return { cv: cv, ctx: ctx }; } catch (e) { return { cv: cv, ctx: ctx }; }
+    }
+    cv.width = 0; cv.height = 0;
+    return null;
+  }
+  // renders rect (PDF units, scale 1, y down) of a page to a new canvas cssW pixels wide.
+  // opts.rot draws it turned a quarter to the left (cssW then runs along the canvas height);
+  // opts.stale says when the result is no longer wanted, before any memory is taken.
+  // rect.yTrim, once known, is where the blank strip below the last mark begins.
+  function renderRegion(rect, cssW, list, keepBottom, opts) {
+    opts = opts || {};
+    return app.doc.getPage(rect.page).then(function (pg) {
+      if (opts.stale && opts.stale()) throw cancelled();
+      var rot = !!opts.rot, y1 = rect.y1, known = isNum(rect.yTrim); // decided now: another drawing may learn it meanwhile
+      if (known && rect.yTrim > rect.y0 + 1 && rect.yTrim < y1) y1 = rect.yTrim;
+      var vw = rect.x1 - rect.x0, vh = y1 - rect.y0, dpr = Math.min(window.devicePixelRatio || 1, 3);
+      var S = cssW / vw * dpr;
+      if (vw * S > 4096) S = 4096 / vw;
+      if (vh * S > 8192) S = 8192 / vh;
+      if (vw * S * vh * S > MAX_PX) S = Math.sqrt(MAX_PX / (vw * vh));
+      var made = null;
+      for (var tries = 0; tries < 4 && !made; tries++) {
+        if (tries) S *= 0.6;
+        var cw = Math.max(1, Math.round(vw * S)), ch = Math.max(1, Math.round(vh * S));
+        made = rot ? newCanvas(ch, cw) : newCanvas(cw, ch);
+      }
+      if (!made) throw new Error('canvas');
+      var cv = made.cv, vp, tf;
+      if (rot) {
+        // pdf.js turns the page; the shift then picks the crop out of the turned page
+        vp = pg.getViewport({ scale: S, rotation: ((pg.rotate || 0) + 270) % 360 });
+        tf = [1, 0, 0, 1, -rect.y0 * S, -(pg.getViewport({ scale: 1 }).width - rect.x1) * S];
+      } else {
+        vp = pg.getViewport({ scale: S });
+        tf = [1, 0, 0, 1, -rect.x0 * S, -rect.y0 * S];
+      }
+      var task = pg.render({ canvasContext: made.ctx, viewport: vp, transform: tf, background: '#ffffff' });
+      list.push(task);
+      var drop = function () { var i = list.indexOf(task); if (i >= 0) list.splice(i, 1); };
+      return task.promise.then(function () {
+        drop(); touchPage(pg);
+        if (rot || keepBottom === null || keepBottom === undefined || known) return cv;
+        var out = trimBottom(cv, dpr, Math.round((keepBottom - rect.y0) * S));
+        // the zoom then draws only down to here, with no extra copy
+        rect.yTrim = out === cv ? rect.y1 : rect.y0 + out.height / S;
+        return out;
+      }, function (e) { drop(); cv.width = 0; cv.height = 0; throw e; });
+    });
+  }
+  function putCanvas(box, cv, label) {
+    releaseCanvases(box);
+    box.innerHTML = '';
+    cv.setAttribute('role', 'img');
+    cv.setAttribute('aria-label', label);
+    box.appendChild(cv);
+  }
+  function isCancel(e) { return e && e.name === 'RenderingCancelledException'; }
+  function regionFor(qi, L) {
+    var q = C.Q[qi], r = L.q[qi];
+    if (r) return { page: q.p, x0: L.x0, x1: L.x1, y0: r.y0, y1: r.y1, tb: r.tb, full: false };
+    return { page: q.p, x0: L.x0, x1: L.x1, y0: Math.max(0, L.top), y1: L.bottom > L.top + 50 ? L.bottom : L.H, tb: null, full: true };
+  }
+  function ctxRegion(cpage, L) {
+    return L.intro ? { page: cpage, x0: L.x0, x1: L.x1, y0: L.intro.y0, y1: L.intro.y1, tb: L.intro.tb, full: false } : null;
+  }
+  function wholePage(p) { return { page: p, whole: true, full: true }; }
+  function pageRect(reg) {
+    if (!reg.whole && !reg.forceWhole) return Promise.resolve(reg);
+    return app.doc.getPage(reg.page).then(function (pg) {
+      var vp = pg.getViewport({ scale: 1 });
+      return { page: reg.page, x0: 0, x1: vp.width, y0: 0, y1: vp.height, tb: null };
+    });
+  }
+  function paperWidth(el) { return Math.max(200, Math.floor(el.clientWidth || el.getBoundingClientRect().width || 600)); }
+
+  // ---------------------------------------------------------------- question screen
+  function qLabel(q) { return C.AREAS[q.a].name + ' · pregunta ' + q.n; }
+  function renderQuestion() {
+    cancelRenders();
+    app.curRegion = null; app.curCtx = null;
+    disarm($('q-end'), 'Terminar');
+    var seq = app.renderSeq, qi = curQi(), q = C.Q[qi], area = C.AREAS[q.a];
+    var r = app.round, mode = app.mode;
+    // the double-tap guard starts only when a different question appears: drawing the same one
+    // again (the phone turned, the window changed size) must not swallow the next tap
+    var shownKey = mode + ':' + qi + ':' + (mode === 'quiz' && r ? r.t0 + ':' + r.pos : (app.review ? app.review.pos : ''));
+    if (shownKey !== app.shownKey) { app.shownAt = now(); app.shownKey = shownKey; }
+    $('scr-quiz').classList.toggle('quizmode', mode === 'quiz');
+    if (mode === 'quiz') {
+      var sec = C.section(r.sec);
+      $('q-back').textContent = '← Inicio';
+      $('q-end').hidden = false;
+      $('q-title').textContent = sec.name;
+      $('q-count').textContent = (r.pos + 1) + ' de ' + r.order.length;
+      $('q-bar').style.width = (r.pos / r.order.length * 100) + '%';
+    } else {
+      var rv = app.review;
+      $('q-back').textContent = mode === 'review' ? '← Resultado' : '← Volver';
+      $('q-end').hidden = true;
+      $('q-title').textContent = mode === 'review' ? 'Repaso de incorrectas' : 'Todas en orden';
+      $('q-count').textContent = (rv.pos + 1) + ' de ' + rv.list.length;
+      $('q-bar').style.width = ((rv.pos + 1) / rv.list.length * 100) + '%';
+    }
+    $('q-meta').innerHTML = '<b>' + esc(area.name) + '</b> · pregunta ' + q.n;
+    var paper = $('q-paper');
+    releaseCanvases(paper);
+    paper.innerHTML = '<div class="ph">Cargando pregunta…</div>';
+    paper.style.minHeight = '160px';
+    $('q-ctx-box').hidden = q.ctx < 0;
+    $('q-label').hidden = q.ctx < 0;
+    $('q-label').textContent = 'Pregunta ' + q.n;
+    releaseCanvases($('q-ctx-paper')); // a hidden support text must not keep its memory
+    $('q-ctx-paper').innerHTML = '';
+    if (q.ctx >= 0) {
+      var c = C.CTX[q.ctx];
+      $('q-ctx-label').textContent = 'Texto de apoyo para las preguntas ' + c.nums[0] + ' a ' + c.nums[c.nums.length - 1];
+      $('q-ctx-paper').innerHTML = '<div class="ph">Cargando…</div>';
+    }
+    $('q-fallback').hidden = true;
+    renderAnswerState();
+    if (!app.doc) { paper.innerHTML = '<div class="ph">Falta el PDF.</div>'; return; }
+    var w = paperWidth(paper);
+    app.renderedW = w;
+    layoutOf(q.p).then(function (L) {
+      if (seq !== app.renderSeq) return;
+      var reg = regionFor(qi, L);
+      app.curRegion = reg;
+      if (reg.full) {
+        $('q-fallback').hidden = false;
+        $('q-fallback').textContent = 'Esta pregunta no se pudo recortar, así que se muestra la página ' + q.p + ' completa. Busca la pregunta ' + q.n + '.';
+      }
+      paper.style.minHeight = Math.round((reg.y1 - reg.y0) * w / (reg.x1 - reg.x0)) + 'px';
+      return renderRegion(reg, w, app.tasks, reg.full ? null : reg.tb, { stale: function () { return seq !== app.renderSeq; } }).then(function (cv) {
+        if (seq !== app.renderSeq) { cv.width = 0; cv.height = 0; return; }
+        putCanvas(paper, cv, qLabel(q));
+        paper.style.minHeight = '';
+      });
+    }).catch(function (e) {
+      if (isCancel(e) || seq !== app.renderSeq) return;
+      app.curRegion = wholePage(q.p);
+      paper.style.minHeight = '';
+      paper.innerHTML = '<div class="ph">No se pudo mostrar la pregunta. Toca aquí para ver la página ' + q.p + ' completa.</div>';
+    });
+    if (q.ctx >= 0) {
+      var cpage = C.CTX[q.ctx].p, cw = paperWidth($('q-ctx-paper'));
+      layoutOf(cpage).then(function (L) {
+        if (seq !== app.renderSeq) return;
+        var cr = ctxRegion(cpage, L);
+        if (!cr) throw new Error('sin texto de apoyo');
+        app.curCtx = cr;
+        return renderRegion(cr, cw, app.tasks, cr.tb, { stale: function () { return seq !== app.renderSeq; } }).then(function (cv) {
+          if (seq !== app.renderSeq) { cv.width = 0; cv.height = 0; return; }
+          putCanvas($('q-ctx-paper'), cv, 'Texto de apoyo');
+        });
+      }).catch(function (e) {
+        if (isCancel(e) || seq !== app.renderSeq) return;
+        app.curCtx = wholePage(cpage);
+        $('q-ctx-paper').innerHTML = '<div class="ph">No se pudo recortar el texto de apoyo. Toca aquí para ver la página ' + cpage + '.</div>';
+      });
+    }
+    prefetchNext();
+  }
+  function prefetchNext() {
+    var nxt = null;
+    if (app.mode === 'quiz' && app.round.pos + 1 < app.round.order.length) nxt = app.round.order[app.round.pos + 1];
+    else if (app.mode !== 'quiz' && app.review.pos + 1 < app.review.list.length) nxt = app.review.list[app.review.pos + 1];
+    if (nxt !== null) setTimeout(function () { if (app.doc) layoutOf(C.Q[nxt].p).catch(function () {}); }, 150);
+  }
+  function renderAnswerState() {
+    var qi = curQi(), q = C.Q[qi], key = app.keys[qi];
+    var chosen = app.mode === 'quiz' ? app.round.ans[qi] : (app.mode === 'review' ? app.review.ans[qi] : undefined);
+    var revealed = chosen !== undefined || app.mode === 'browse';
+    var bubs = $('q-bubbles').querySelectorAll('.bub');
+    Array.prototype.forEach.call(bubs, function (b) {
+      var c = +b.dataset.c, label = 'Opción ' + LETTERS[c];
+      b.className = 'bub';
+      b.disabled = revealed || app.mode !== 'quiz';
+      if (revealed) {
+        if (c === chosen) { b.classList.add(c === key ? 'ok' : 'bad'); label += c === key ? ', tu respuesta, correcta' : ', tu respuesta, incorrecta'; }
+        else if (c === key) { b.classList.add(chosen === undefined ? 'ok' : 'ans'); label += ', respuesta correcta'; }
+        else b.classList.add('dim');
+      }
+      b.setAttribute('aria-label', label);
+    });
+    var noteBox = $('q-note');
+    noteBox.hidden = !(revealed && q.note);
+    if (revealed && q.note) noteBox.innerHTML = '<b>Nota:</b> ' + esc(q.note);
+    if (app.mode === 'quiz') {
+      $('q-revnav').hidden = true;
+      $('q-fb').hidden = false;
+      $('q-fb').classList.toggle('wait', !revealed);
+      $('q-next').disabled = !revealed;
+      if (revealed) {
+        var ok = chosen === key, t = $('q-fb-txt');
+        t.className = 'txt ' + (ok ? 'ok' : 'bad');
+        t.innerHTML = ok ? '✓ Correcto' : q.alt.indexOf(chosen) >= 0 ? '✗ La clave oficial <span class="nw">es la ' + LETTERS[key] + '</span>' : '✗ Incorrecto, <span class="nw">era la ' + LETTERS[key] + '</span>';
+        $('q-next').textContent = app.round.pos + 1 >= app.round.order.length ? 'Ver resultado' : 'Siguiente →';
+      } else $('q-fb-txt').textContent = '';
+    } else {
+      $('q-fb').hidden = true;
+      $('q-revnav').hidden = false;
+      var rv = app.review;
+      $('q-prev').disabled = rv.pos === 0;
+      $('q-rnext').textContent = rv.pos + 1 >= rv.list.length ? (app.mode === 'review' ? 'Ver resultado' : 'Volver') : 'Siguiente →';
+      var tt = $('q-rev-txt');
+      if (app.mode === 'review') { tt.className = 'txt bad'; tt.innerHTML = 'Marcaste la ' + LETTERS[chosen] + ', <span class="nw">' + (q.alt.indexOf(chosen) >= 0 ? 'la clave oficial es la ' : 'era la ') + LETTERS[key] + '</span>'; }
+      else { tt.className = 'txt'; tt.textContent = 'Respuesta: ' + LETTERS[key]; }
+    }
+    syncBarHeight();
+  }
+  function syncBarHeight() {
+    var h = $('q-answerbar').offsetHeight;
+    if (h) document.documentElement.style.setProperty('--bar-h', h + 'px');
+  }
+  // scrolls just enough for el to clear the sticky answer bar, never pushing its top under the top bar
+  function revealAboveBar(el) {
+    try {
+      var r = el.getBoundingClientRect(), barTop = $('q-answerbar').getBoundingClientRect().top;
+      var topLimit = document.querySelector('#scr-quiz .topbar').getBoundingClientRect().bottom + 8;
+      var dy = r.bottom - (Math.min(window.innerHeight, barTop) - 8);
+      if (dy > 0) dy = Math.min(dy, r.top - topLimit);
+      if (dy > 0) window.scrollBy(0, dy);
+    } catch (e) {}
+  }
+  function choose(c, fromPointer) {
+    if (app.screen !== 'scr-quiz' || app.mode !== 'quiz' || !app.round) return;
+    if (fromPointer && now() - app.shownAt < 400) return; // second tap of a double tap on "Siguiente"
+    var s = syncActive();
+    if (s === 'moved') { renderQuestion(); return; }
+    if (s !== 'ok') { roundGone(s); return; }
+    var qi = curQi();
+    if (!C.answer(app.round, qi, c)) return;
+    setRound(app.round.sec, app.round);
+    saveState();
+    renderAnswerState();
+    try { $('q-next').focus({ preventScroll: true }); } catch (e) {}
+    var nb = $('q-note');
+    if (!nb.hidden) setTimeout(function () { revealAboveBar(nb); }, 30);
+  }
+  function next() {
+    if (app.mode !== 'quiz' || !app.round) return;
+    var s = syncActive();
+    if (s === 'moved') { renderQuestion(); return; }
+    if (s !== 'ok') { roundGone(s); return; }
+    var r = app.round, qi = curQi();
+    if (r.ans[qi] === undefined) return;
+    r.pos++;
+    if (r.pos >= r.order.length) { finishRound(); return; } // finishRound saves once; a half-finished copy is never stored
+    setRound(r.sec, r);
+    saveState();
+    renderQuestion();
+    window.scrollTo(0, 0);
+    try { $('q-metarow').focus({ preventScroll: true }); } catch (e) {}
+  }
+  function finishRound() {
+    cancelRenders();
+    var r = app.round, g = C.grade(r, app.keys);
+    if (g.n) {
+      var rec = { c: g.c, n: g.n, total: r.order.length, t: Date.now(), t0: r.t0 };
+      if (r.sec === 'all') { rec.areas = g.by.length; rec.ok = g.by.filter(function (b) { return C.passes(b.c, b.n); }).length; }
+      setLast(r.sec, rec);
+    }
+    setRound(r.sec, null, r.t0);
+    app.round = null;
+    app.summary = { sec: r.sec, g: g, ans: Object.assign({}, r.ans), total: r.order.length, t0: r.t0 };
+    // kept so the results survive a reload, the back gesture or the phone closing the tab
+    writeView(g.n ? { sec: r.sec, ans: app.summary.ans, total: r.order.length, t0: r.t0 } : null);
+    saveState();
+    renderSummary();
+  }
+
+  // ---------------------------------------------------------------- summary
+  function renderSummary() {
+    var S = app.summary, g = S.g, sec = C.section(S.sec), single = S.sec !== 'all', partial = g.n < S.total;
+    $('sum-kicker').textContent = 'Resultado · ' + sec.name;
+    var title = $('sum-title'), rule = $('sum-rule');
+    var sub = '<span class="nw">' + g.c + ' de ' + g.n + '</span> correctas.' + (partial ? ' Respondiste <span class="nw">' + g.n + ' de ' + S.total + '</span>.' : '');
+    var onlyAnswered = partial ? 'Solo cuentan las preguntas que respondiste.' : '';
+    if (single) {
+      var gr = C.grade10(g.c, g.n), pass = C.passes(g.c, g.n);
+      title.textContent = gr.toFixed(1) + ' · ' + (pass ? 'Aprobada' : 'Reprobada');
+      title.className = 'res-title ' + (pass ? 'pass' : 'fail');
+      $('sum-sub').innerHTML = sub;
+      $('sum-card').hidden = true;
+      rule.textContent = ((pass ? '' : 'Se aprueba con 6. ') + onlyAnswered).trim();
+    } else {
+      var ok = g.by.filter(function (b) { return C.passes(b.c, b.n); }).length;
+      title.textContent = ok + ' de ' + g.by.length + (g.by.length === 1 ? ' área aprobada' : ' áreas aprobadas');
+      title.className = 'res-title';
+      $('sum-sub').innerHTML = sub;
+      var h = '<thead><tr><th>Área</th><th>Aciertos</th><th>Calif.</th></tr></thead><tbody>';
+      C.AREAS.forEach(function (a, ai) {
+        var b = g.by.filter(function (x) { return x.a === ai; })[0];
+        if (!b) { h += '<tr><td>' + esc(a.name) + '</td><td class="muted" colspan="2">Sin responder</td></tr>'; return; }
+        var gr2 = C.grade10(b.c, b.n), p2 = C.passes(b.c, b.n);
+        h += '<tr><td>' + esc(a.name) + '</td><td>' + b.c + ' de ' + b.n + '</td><td class="' + (p2 ? 'pass' : 'fail') + '">' + gr2.toFixed(1) + ' ' + (p2 ? '✓' : '✗') + '<span class="vh">' + (p2 ? ' aprobada' : ' reprobada') + '</span></td></tr>';
+      });
+      $('sum-table').innerHTML = h + '</tbody>';
+      $('sum-card').hidden = false;
+      rule.textContent = ('Cada área se aprueba con 6. ' + onlyAnswered).trim();
+    }
+    if (!storageOk) rule.textContent = (rule.textContent + ' El avance no se está guardando en este navegador.').trim();
+    rule.hidden = !rule.textContent;
+    var sorted = g.wrong.slice().sort(function (a, b) { return a - b; });
+    app.summary.wrongSorted = sorted;
+    $('sum-wrong-box').hidden = !sorted.length;
+    $('sum-review').textContent = sorted.length === 1 ? 'Repasar la incorrecta' : 'Repasar las ' + sorted.length + ' incorrectas';
+    $('sum-again').className = 'btn ' + (sorted.length ? 'ghost' : '');
+    show('scr-sum');
+  }
+  function restoreView() {
+    var v = readView(), sec = v && C.section(v.sec);
+    if (!sec) return false;
+    var order = Object.keys(v.ans).map(Number).sort(function (a, b) { return a - b; });
+    var g = C.grade({ order: order, ans: v.ans }, app.keys);
+    if (!g.n) return false;
+    app.round = null; app.mode = 'quiz';
+    app.summary = { sec: v.sec, g: g, ans: Object.assign({}, v.ans), total: v.total, t0: v.t0 };
+    renderSummary();
+    return true;
+  }
+  function openReview(k) {
+    if (!app.summary || !app.summary.wrongSorted.length) return;
+    app.review = { list: app.summary.wrongSorted, pos: Math.max(0, Math.min(k, app.summary.wrongSorted.length - 1)), ans: app.summary.ans };
+    app.mode = 'review';
+    show('scr-quiz');
+    renderQuestion();
+  }
+  function openBrowse() {
+    app.review = { list: C.Q.map(function (q) { return q.i; }), pos: 0, ans: {} };
+    app.mode = 'browse';
+    show('scr-quiz');
+    renderQuestion();
+  }
+  function reviewStep(d) {
+    var rv = app.review, np = rv.pos + d;
+    if (np < 0) return;
+    if (np >= rv.list.length) { leaveQuiz(); return; }
+    rv.pos = np;
+    renderQuestion();
+    window.scrollTo(0, 0);
+  }
+  function leaveQuiz() {
+    cancelRenders();
+    releaseCanvases($('q-paper')); releaseCanvases($('q-ctx-paper'));
+    if (app.mode === 'review') { app.mode = 'quiz'; show('scr-sum'); return; }
+    if (app.mode === 'browse') { app.mode = 'quiz'; renderDiag(); return; }
+    app.round = null;
+    renderHome();
+  }
+
+  // ---------------------------------------------------------------- overlay (zoom / full page)
+  var LEVELS = [1, 1.5, 2, 2.5, 3];
+  var ov = { open: false, what: 'crop', reg: null, label: '', kind: 'q', level: 1, rot: false, rlevel: 1, fresh: true, seq: 0, tasks: [], opener: null, pushed: false, soon: 0 };
+  function phoneWidth() { return window.innerWidth <= 600; }
+  function portraitPhone() { return phoneWidth() && window.innerHeight > window.innerWidth; }
+  function savedZoom() { try { var v = +localStorage.getItem(ZOOM_KEY); return LEVELS.indexOf(v) >= 0 ? v : 0; } catch (e) { return 0; } }
+  // on a portrait phone the zoom opens sideways unless he chose "Normal" before
+  function savedRot() { try { return localStorage.getItem(ROT_KEY) !== '0'; } catch (e) { return true; } }
+  function openOverlay(reg, label, kind) {
+    if (!reg || !app.doc || ov.open) return;
+    ov.open = true; ov.reg = reg; ov.label = label; ov.kind = kind || 'q'; ov.what = reg.full ? 'full' : 'crop';
+    ov.rot = savedRot(); ov.rlevel = 1; ov.fresh = true; ov.mode = ''; ov.box = null;
+    ov.level = phoneWidth() ? (savedZoom() || 1.5) : 1;
+    disarm($('q-end'), 'Terminar'); // an armed "Sí, terminar" must not wait under the zoom
+    ov.opener = document.activeElement;
+    $('overlay').hidden = false;
+    $('app').inert = true; $('app').setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = 'hidden';
+    try { history.pushState({ exacerOverlay: 1 }, ''); ov.pushed = true; ov.histLen = history.length; } catch (e) { ov.pushed = false; }
+    drawOverlay();
+    try { $('ov-close').focus({ preventScroll: true }); } catch (e) {}
+  }
+  function overlayRotated() { return ov.rot && portraitPhone(); }
+  function syncOverlayBar() {
+    var full = ov.what === 'full', rot = overlayRotated(), lv = rot ? ov.rlevel : ov.level, tiny = window.innerWidth <= 360;
+    $('ov-title').textContent = full ? ('Página ' + ov.reg.page) : ov.label;
+    $('ov-toggle').textContent = full ? (ov.kind === 'ctx' ? (tiny ? 'Texto' : 'Ver texto') : (tiny ? 'Pregunta' : 'Ver pregunta')) : (tiny ? 'Página' : 'Ver página');
+    $('ov-toggle').hidden = !!ov.reg.full;
+    $('ov-rot').hidden = !portraitPhone();
+    $('ov-rot').textContent = rot ? 'Normal' : 'De lado';
+    $('ov-cap').hidden = !rot;
+    $('ov-out').disabled = lv <= LEVELS[0];
+    $('ov-in').disabled = lv >= LEVELS[LEVELS.length - 1];
+  }
+  function innerSize(el) {
+    var cs = getComputedStyle(el);
+    return { w: el.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight),
+             h: el.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) };
+  }
+  function drawOverlay() {
+    if (!ov.open || !ov.reg) return;
+    var seq = ++ov.seq, body = $('ov-body'), full = ov.what === 'full', reg = ov.reg, rot = overlayRotated();
+    // turning the phone (or resizing across the phone width) starts the view afresh at that mode's size
+    var mode = rot ? 'rot' : phoneWidth() ? 'narrow' : 'wide';
+    if (ov.mode && ov.mode !== mode) { ov.fresh = true; ov.rlevel = 1; if (!rot) ov.level = phoneWidth() ? (savedZoom() || 1.5) : 1; }
+    ov.mode = mode;
+    ov.tasks.forEach(function (t) { try { t.cancel(); } catch (e) {} });
+    ov.tasks = [];
+    syncOverlayBar();
+    if (!body.querySelector('canvas')) body.innerHTML = '<div class="ov-msg">Cargando…</div>';
+    var src = full ? { page: reg.page, forceWhole: true } : reg;
+    pageRect(src).then(function (rect) {
+      if (seq !== ov.seq) return;
+      var box = innerSize(body), w;
+      ov.box = box;
+      // "de lado": the text runs along the long side of the phone, so it reads large without panning
+      if (rot) w = Math.round(Math.max(260, box.h) * ov.rlevel);
+      else w = Math.round(Math.max(260, Math.min(box.w, 900)) * ov.level);
+      var stale = function () { return seq !== ov.seq || !ov.open; };
+      var keep = full ? null : (rect.tb === undefined ? null : rect.tb);
+      // sideways the blank strip below the text can't be cut from the turned drawing, so when it is
+      // not known yet (the question itself is still being drawn) a small upright drawing finds it first
+      var pre = rot && keep !== null && !isNum(rect.yTrim)
+        ? renderRegion(rect, 480, ov.tasks, keep, { stale: stale }).then(function (c) { c.width = 0; c.height = 0; })
+        : Promise.resolve();
+      return pre.then(function () {
+        if (stale()) throw cancelled();
+        return renderRegion(rect, w, ov.tasks, keep, { rot: rot, stale: stale });
+      }).then(function (cv) {
+        if (stale()) { cv.width = 0; cv.height = 0; return; }
+        var label = full ? ('Página ' + reg.page) : ov.label, out = cv;
+        // drawn already turned by pdf.js: no second full-size copy is ever made
+        if (rot) { out.style.width = Math.round(cv.width * w / cv.height) + 'px'; out.style.height = w + 'px'; }
+        else out.style.width = w + 'px';
+        // zooming keeps the edge where reading starts: the left (upright) or, sideways, the left for the
+        // top of the question and the bottom for the start of every line
+        var fx = body.scrollWidth > body.clientWidth ? body.scrollLeft / body.scrollWidth : 0;
+        var fy = body.scrollHeight > body.clientHeight ? (rot ? body.scrollTop + body.clientHeight : body.scrollTop) / body.scrollHeight : (rot ? 1 : 0);
+        putCanvas(body, out, label);
+        if (ov.fresh) { body.scrollLeft = 0; body.scrollTop = rot ? body.scrollHeight : 0; ov.fresh = false; }
+        else { body.scrollLeft = Math.max(0, fx * body.scrollWidth); body.scrollTop = Math.max(0, fy * body.scrollHeight - (rot ? body.clientHeight : 0)); }
+      });
+    }).catch(function (e) {
+      if (isCancel(e) || seq !== ov.seq || !ov.open) return;
+      body.innerHTML = '<div class="ov-msg">No se pudo mostrar.</div>';
+    });
+  }
+  // quick repeated taps on +, −, the toggle or rotate only render the final state
+  function drawOverlaySoon() {
+    clearTimeout(ov.soon);
+    ov.seq++;
+    ov.tasks.forEach(function (t) { try { t.cancel(); } catch (e) {} });
+    ov.tasks = [];
+    syncOverlayBar();
+    ov.soon = setTimeout(drawOverlay, 140);
+  }
+  function zoomStep(d) {
+    var rot = overlayRotated(), i = LEVELS.indexOf(rot ? ov.rlevel : ov.level) + d;
+    if (i < 0 || i >= LEVELS.length) return;
+    if (rot) ov.rlevel = LEVELS[i];
+    else { ov.level = LEVELS[i]; if (phoneWidth()) try { localStorage.setItem(ZOOM_KEY, String(ov.level)); } catch (e) {} }
+    drawOverlaySoon();
+  }
+  function closeOverlay(fromPop) {
+    if (!ov.open) return;
+    clearTimeout(ov.soon);
+    ov.open = false; ov.seq++;
+    ov.tasks.forEach(function (t) { try { t.cancel(); } catch (e) {} });
+    ov.tasks = [];
+    releaseCanvases($('ov-body'));
+    $('ov-body').innerHTML = '';
+    $('overlay').hidden = true;
+    $('app').inert = false; $('app').removeAttribute('aria-hidden');
+    document.body.style.overflow = '';
+    // the history is shared with the page around the app: step back only over our own entry,
+    // never over one the surrounding page added while the zoom was open
+    if (ov.pushed && !fromPop) { try { if (history.length === ov.histLen && history.state && history.state.exacerOverlay) history.back(); } catch (e) {} }
+    ov.pushed = false;
+    // a quick second tap on ✕ must not land on what was under it, and taps that keep coming
+    // never reach "Terminar" (on phones ✕ sits on the left, over the harmless "← Inicio")
+    app.screenAt = now(); app.closeGuardUntil = now() + 1000;
+    try {
+      var answered = app.screen === 'scr-quiz' && app.mode === 'quiz' && app.round && app.round.ans[curQi()] !== undefined;
+      var target = answered ? $('q-next') : ov.opener;
+      if (target && target.focus) target.focus({ preventScroll: true });
+    } catch (e) {}
+    refreshFromStorage(); // catch up with anything another tab saved while the zoom was open
+  }
+  window.addEventListener('popstate', function () { if (ov.open) closeOverlay(true); });
+  function zoomQuestion(fromPointer) {
+    if (fromPointer && now() - app.shownAt < 400) return;
+    var qi = curQi(), q = C.Q[qi], seq = app.renderSeq;
+    if (app.curRegion) { openOverlay(app.curRegion, 'Pregunta ' + q.n, 'q'); return; }
+    // the crop is still being worked out: wait for it instead of showing something else
+    layoutOf(q.p).then(function (L) { return regionFor(qi, L); }, function () { return wholePage(q.p); }).then(function (reg) {
+      if (seq === app.renderSeq && app.screen === 'scr-quiz') openOverlay(reg, 'Pregunta ' + q.n, 'q');
+    });
+  }
+  function zoomContext(fromPointer) {
+    if (fromPointer && (now() - app.shownAt < 400 || now() - app.screenAt < 400)) return;
+    var q = C.Q[curQi()], seq = app.renderSeq;
+    if (q.ctx < 0) return;
+    var cpage = C.CTX[q.ctx].p;
+    if (app.curCtx) { openOverlay(app.curCtx, 'Texto de apoyo', 'ctx'); return; }
+    layoutOf(cpage).then(function (L) { return ctxRegion(cpage, L) || wholePage(cpage); }, function () { return wholePage(cpage); }).then(function (reg) {
+      if (seq === app.renderSeq && app.screen === 'scr-quiz') openOverlay(reg, 'Texto de apoyo', 'ctx');
+    });
+  }
+
+  // ---------------------------------------------------------------- technical details
+  function renderDiag() {
+    var chk = app.check;
+    show('scr-diag');
+    $('diag-sub').textContent = !chk ? '' : chk.located + ' de ' + chk.total + ' preguntas localizadas. ' +
+      (chk.keysParsed ? 'Claves leídas del PDF: ' + chk.keysParsed + ', ' + (chk.keyDiff.length ? plural(chk.keyDiff.length, 'distinta', 'distintas') : 'todas coinciden') + '.' : 'No se pudieron leer las claves del PDF, así que se usan las de la app.');
+    var tbl = $('diag-table');
+    tbl.innerHTML = '<tr><td class="muted">Calculando…</td></tr>';
+    if (!app.doc) return;
+    var pages = C.QUESTION_PAGES;
+    Promise.all(pages.map(function (p) { return layoutOf(p).catch(function () { return null; }); })).then(function (Ls) {
+      if (app.screen !== 'scr-diag') return;
+      var byPage = {};
+      pages.forEach(function (p, k) { byPage[p] = Ls[k]; });
+      var h = '<thead><tr><th>Área</th><th>Núm.</th><th>Pág.</th><th>Lectura</th><th>Clave</th></tr></thead><tbody>';
+      C.Q.forEach(function (q) {
+        var L = byPage[q.p], how = L ? L.how[q.i] : 'none';
+        var badge = how === 'hash' ? '<span class="badge ok">exacta</span>' : how === 'num' ? '<span class="badge warn">por número</span>' : '<span class="badge bad">página completa</span>';
+        h += '<tr><td>' + esc(C.AREAS[q.a].short) + '</td><td>' + q.n + '</td><td>' + q.p + '</td><td>' + badge + '</td><td>' + LETTERS[app.keys[q.i]] + '</td></tr>';
+      });
+      tbl.innerHTML = h + '</tbody>';
+    });
+  }
+
+  // ---------------------------------------------------------------- events
+  // two-step buttons ("tap again to confirm"): one timer per button, and the confirming tap
+  // must come a moment later, so a double tap never confirms by accident
+  function armButton(t, armedText, normalText, ms) {
+    clearTimeout(t._armT);
+    t.dataset.armed = '1'; t._armAt = now(); t._normalText = normalText; t.textContent = armedText;
+    t._armT = setTimeout(function () { t.dataset.armed = ''; t.textContent = normalText; }, ms);
+  }
+  function disarm(t, normalText) { clearTimeout(t._armT); t.dataset.armed = ''; t.textContent = normalText; }
+  function armedReady(t) { return t.dataset.armed === '1' && now() - (t._armAt || 0) >= 450; }
+  document.addEventListener('click', function (ev) {
+    var t = ev.target.closest('button, [data-sec]');
+    if (!t) return;
+    var inOverlay = !!t.closest('#overlay'), byPointer = ev.detail !== 0;
+    // the second tap of a double tap must not act on the screen that the first tap opened
+    if (!inOverlay && byPointer && now() - app.screenAt < 400) return;
+    if (t.dataset.sec) { if (app.doc) startSection(t.dataset.sec, false); return; }
+    if (t.classList.contains('bub')) { choose(+t.dataset.c, byPointer); return; }
+    switch (t.id) {
+      case 'q-next': next(); break;
+      case 'q-back': leaveQuiz(); break;
+      case 'q-end':
+        if (!app.round) break;
+        if (byPointer && now() < app.closeGuardUntil) { app.closeGuardUntil = now() + 1000; break; } // each ignored tap extends it
+        var st = syncActive();
+        if (st === 'finished' || st === 'replaced') { roundGone(st); break; }
+        if (st === 'moved') renderQuestion();
+        if (C.answeredCount(app.round) === 0) { setRound(app.round.sec, null, app.round.t0); saveState(); leaveQuiz(); break; }
+        if (t.dataset.armed === '1') { if (armedReady(t)) { disarm(t, 'Terminar'); finishRound(); } break; }
+        armButton(t, 'Sí, terminar', 'Terminar', 3000);
+        break;
+      case 'q-prev': case 'q-rnext':
+        if (byPointer && now() - app.shownAt < 400) break; // a double tap moves one question, not two
+        reviewStep(t.id === 'q-prev' ? -1 : 1);
+        break;
+      case 'q-zoom': zoomQuestion(byPointer); break;
+      case 'q-ctx-zoom': zoomContext(byPointer); break;
+      case 'ov-close': closeOverlay(false); break;
+      case 'ov-in': zoomStep(1); break;
+      case 'ov-out': zoomStep(-1); break;
+      case 'ov-rot':
+        ov.rot = !overlayRotated(); ov.rlevel = 1; ov.fresh = true;
+        try { localStorage.setItem(ROT_KEY, ov.rot ? '1' : '0'); } catch (e) {}
+        drawOverlaySoon();
+        break;
+      case 'ov-toggle': if (!ov.reg || ov.reg.full) break; ov.what = ov.what === 'full' ? 'crop' : 'full'; ov.fresh = true; drawOverlaySoon(); break;
+      case 'sum-review': openReview(0); break;
+      case 'sum-again': if (app.summary) startSection(app.summary.sec, true); break;
+      case 'sum-home': writeView(null); renderHome(); break;
+      case 'btn-diag': renderDiag(); break;
+      case 'diag-home': renderHome(); break;
+      case 'diag-browse': if (app.doc) openBrowse(); break;
+      case 'btn-copy-url': copyUrl(t); break;
+      case 'btn-change-pdf':
+        if (t.dataset.armed === '1') {
+          if (!armedReady(t)) break;
+          disarm(t, 'Cambiar PDF');
+          app.loadToken++;
+          idbDel().then(function () {
+            setDoc(null); app.check = null; state.check = null; dirty.check = true; writeView(null); setSavedFlag(false); saveState();
+            app.bootMsg = ''; setupError('');
+          });
+          break;
+        }
+        armButton(t, 'Toca otra vez para quitarlo', 'Cambiar PDF', 4000);
+        break;
+    }
+  });
+  $('q-paper').addEventListener('click', function (ev) { if (ev.detail !== 0 && now() - app.screenAt < 400) return; zoomQuestion(ev.detail !== 0); });
+  $('q-ctx-paper').addEventListener('click', function (ev) { zoomContext(ev.detail !== 0); });
+  function copyUrl(btn) {
+    var url = $('pdf-url').textContent;
+    var done = function () { btn.textContent = 'Copiado'; clearTimeout(btn._t); btn._t = setTimeout(function () { btn.textContent = 'Copiar enlace'; }, 2000); };
+    var fallback = function () {
+      // show the address so it can be copied by hand, and try the older copy command once
+      $('url-help').hidden = false; $('pdf-url').hidden = false;
+      var copied = false;
+      try {
+        var rg = document.createRange(); rg.selectNodeContents($('pdf-url'));
+        var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(rg);
+        copied = !!(document.execCommand && document.execCommand('copy'));
+      } catch (e) {}
+      if (copied) { done(); $('url-help').hidden = true; }
+    };
+    try { navigator.clipboard.writeText(url).then(done, fallback); } catch (e) { fallback(); }
+  }
+  $('file').addEventListener('change', function (e) { var f = e.target.files && e.target.files[0]; e.target.value = ''; handleFile(f); });
+  var drop = $('drop');
+  // a file dropped anywhere else must not make the browser open it in place of the app
+  ['dragenter', 'dragover'].forEach(function (n) { document.addEventListener(n, function (e) { e.preventDefault(); if (app.screen === 'scr-setup') drop.classList.add('over'); }); });
+  ['dragleave', 'drop'].forEach(function (n) { document.addEventListener(n, function (e) { e.preventDefault(); drop.classList.remove('over'); }); });
+  document.addEventListener('drop', function (e) {
+    if (app.screen !== 'scr-setup') return;
+    var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) handleFile(f);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (ov.open) {
+      if (e.key === 'Escape') { closeOverlay(false); e.preventDefault(); }
+      else if (e.key === '+' || e.key === '=') { zoomStep(1); e.preventDefault(); }
+      else if (e.key === '-') { zoomStep(-1); e.preventDefault(); }
+      return;
+    }
+    if (app.screen !== 'scr-quiz') return;
+    var tgt = e.target, onCtl = tgt && tgt.closest && tgt.closest('button, a, input, select, textarea, label');
+    var k = (e.key || '').toLowerCase();
+    if (app.mode === 'quiz') {
+      var idx = 'abcd'.indexOf(k); if (idx < 0) idx = '1234'.indexOf(k);
+      if (idx >= 0 && k.length === 1) { choose(idx, false); e.preventDefault(); return; }
+      var answered = app.round && app.round.ans[curQi()] !== undefined;
+      if (answered && (e.key === 'ArrowRight' || (e.key === 'Enter' && (!onCtl || tgt.id === 'q-next')))) { next(); e.preventDefault(); }
+    } else {
+      if (e.key === 'ArrowRight') { reviewStep(1); e.preventDefault(); }
+      if (e.key === 'ArrowLeft') { reviewStep(-1); e.preventDefault(); }
+    }
+  });
+  var rT = 0;
+  window.addEventListener('resize', function () {
+    clearTimeout(rT);
+    rT = setTimeout(function () {
+      if (app.screen === 'scr-quiz' && app.doc) {
+        var w = paperWidth($('q-paper'));
+        if (Math.abs(w - app.renderedW) > 24) renderQuestion();
+        else syncBarHeight();
+      }
+      if (ov.open) {
+        // the browser's own bars coming and going change the height a little: redraw only when
+        // the phone turns or the size that sets the drawing really changes
+        var b = innerSize($('ov-body')), mode = overlayRotated() ? 'rot' : phoneWidth() ? 'narrow' : 'wide', o = ov.box;
+        if (!o || mode !== ov.mode || (mode === 'rot' ? Math.abs(b.h - o.h) : Math.abs(Math.min(b.w, 900) - Math.min(o.w, 900))) > 24) drawOverlaySoon();
+        else syncOverlayBar();
+      }
+    }, 250);
+  });
+
+  // ---------------------------------------------------------------- start
+  function boot() {
+    if (!pdfReady()) { setupError(READER_MSG); return; }
+    busy('Abriendo…', null);
+    var token = ++app.loadToken, settled = false, flagged = savedFlag();
+    // a stuck storage read gets out of the way (with a message if a PDF was saved before),
+    // but its answer is still used if it arrives later and nothing else happened meanwhile
+    var slow = visibleTimer(function () {
+      if (settled || token !== app.loadToken) return;
+      setupError(flagged ? 'No se pudo leer el PDF guardado en este navegador. Recarga la página. Si sigue igual, cárgalo de nuevo.' : '');
+    }, flagged ? 15000 : 3000);
+    var readFailed = false;
+    idbGet().catch(function () { readFailed = true; return null; }).then(function (rec) {
+      settled = true; stopTimer(slow);
+      if (token !== app.loadToken) return;
+      if (!rec || !rec.data) { if (!readFailed) setSavedFlag(false); setupError(''); return; }
+      var nBytes = rec.data.byteLength;
+      busy('Abriendo…', null);
+      return openPdf(rec.data).then(function (doc) {
+        if (token !== app.loadToken) { destroyDoc(doc); return; }
+        if (doc.numPages !== C.PDF_PAGES) { destroyDoc(doc); throw new Error('pages'); }
+        // the check summary is kept in localStorage and, as a spare, next to the PDF itself
+        var cached = cachedCheck(doc, state.check, nBytes) || cachedCheck(doc, rec.check, nBytes);
+        setSavedFlag(true);
+        if (cached) { setDoc(doc, {}); app.savedPdf = true; applyCheck(cached); if (!restoreView()) renderHome(); return; }
+        busy('Comprobando el PDF guardado…', 0);
+        var map = {};
+        return checkDoc(doc, map, function (f) { if (token === app.loadToken) busyUpdate(f); }).then(function (chk) {
+          if (token !== app.loadToken) { destroyDoc(doc); return; }
+          if (!looksRight(chk)) { destroyDoc(doc); throw new Error('mismatch'); }
+          setDoc(doc, map); app.savedPdf = true;
+          applyCheck(chk);
+          rememberCheck(doc, chk, nBytes);
+          idbPut({ name: rec.name, size: rec.size, t: rec.t, data: rec.data, check: state.check });
+          if (!restoreView()) renderHome();
+        });
+      }).catch(function (e) {
+        if (token !== app.loadToken) return;
+        app.bootMsg = /worker/i.test(String(e && e.message)) ? READER_MSG : 'No se pudo abrir el PDF guardado. Cárgalo de nuevo.';
+        setupError(app.bootMsg);
+      });
+    });
+  }
+  window.__app = { app: app, state: function () { return state; }, CORE: C, ov: ov, MAX_PX: MAX_PX };
+  boot();
+})();
+</script>
+
+<script>
+// works offline after the first visit (the PDF itself stays in this phone's storage)
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+}
+</script>
+</body>
+</html>
