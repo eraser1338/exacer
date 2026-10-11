@@ -1,7 +1,7 @@
 {
  "name": "Práctica EXACER",
  "short_name": "EXACER",
- "description": "Práctica con las 272 preguntas oficiales de la versión de práctica 2025, en orden al azar.",
+ "description": "Sesión diaria con las 272 preguntas de práctica del EXACER, con guía y repaso espaciado.",
  "start_url": "./",
  "scope": "./",
  "display": "standalone",
