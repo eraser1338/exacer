@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#f3f0e8" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#131518" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f4f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#13161b" media="(prefers-color-scheme: dark)">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -15,47 +15,53 @@
 <body>
 <title>Práctica EXACER</title>
 <meta name="description" content="Sesión diaria con las 272 preguntas de práctica del EXACER 2025, con guía y repaso.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap">
 <style>
 :root{
-  --bg:#f3f0e8; --surface:#fffdf9; --surface-2:#f7f3ea; --ink:#1d2023; --muted:#5a6168; --faint:#7a8087; --line:#dcd5c7;
-  --accent:#bf4f2d; --accent-strong:#9f3f1f; --accent-soft:#f6e2d8; --on-accent:#ffffff;
-  --ok:#17784a; --ok-soft:#d8eedf; --on-ok:#ffffff; --bad:#b3261e; --bad-soft:#f8dbd6; --on-bad:#ffffff;
-  --bub-edge:#8f877a;
-  --paper:#ffffff; --paper-filter:none; --paper-edge:#e4ddd0;
-  --shadow:0 1px 2px rgba(45,35,15,.07),0 4px 14px rgba(45,35,15,.06);
-  --focus:#2f6fdb; --bar-h:120px;
-  --rev:#c98a12; --rev-bar:#a8730d; --rev-soft:#f7ead0; --rev-ink:#8a5b00; --track:#e6e0d3; --done:#1f8a55; --way-soft:#e3f2e8;
-  --today-1:#b84a28; --today-2:#a8401f; --on-today:#ffffff; --today-btn:#ffffff; --today-btn-ink:#9f3f1f;
+  --bg:#f3f4f1; --surface:#ffffff; --surface-2:#eceeea; --ink:#1c222b; --muted:#59616b; --faint:#7b828b; --line:#d9dcd6;
+  --accent:#2947b9; --accent-strong:#1e3796; --accent-soft:#e3e8f8; --on-accent:#ffffff;
+  --ok:#1e7a56; --ok-soft:#dcefe5; --on-ok:#ffffff; --bad:#c22f24; --bad-soft:#f9ddda; --on-bad:#ffffff;
+  --bub-edge:#878e97;
+  --paper:#ffffff; --paper-filter:none; --paper-edge:#dfe2dc;
+  --shadow:0 1px 2px rgba(22,28,40,.06),0 4px 14px rgba(22,28,40,.05);
+  --focus:#2b5fd9; --bar-h:120px;
+  --rev:#b07d2e; --rev-bar:#96681f; --rev-soft:#f5ead3; --rev-ink:#7d5410; --track:#e2e5df; --done:#1e7a56; --way-soft:#e2f1e9;
+  --today-1:#9f2241; --today-2:#751731; --on-today:#ffffff; --today-btn:#ffffff; --today-btn-ink:#8c1d39;
+  --heat-new:#e6e9e3; --gold:#bc955c;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#131518; --surface:#1b1e22; --surface-2:#21252a; --ink:#ebe8e1; --muted:#a8aeb5; --faint:#8b9198; --line:#30353b;
-    --accent:#e6825f; --accent-strong:#f29a7a; --accent-soft:#3b2620; --on-accent:#1b120f;
-    --ok:#55c38c; --ok-soft:#163224; --on-ok:#0f1a14; --bad:#ff5f5f; --bad-soft:#4a1d1d; --on-bad:#1c0f0e;
+    --bg:#13161b; --surface:#1b1f26; --surface-2:#222731; --ink:#e8e9e4; --muted:#a6adb6; --faint:#8a9098; --line:#30363f;
+    --accent:#93a7f2; --accent-strong:#aebdf6; --accent-soft:#242c47; --on-accent:#0f1420;
+    --ok:#57bd8e; --ok-soft:#173226; --on-ok:#0f1a14; --bad:#ff6b5e; --bad-soft:#4a1d1a; --on-bad:#1c0f0e;
     --bub-edge:#6b727b;
-    --paper:#f3f1ec; --paper-filter:brightness(.85); --paper-edge:#30353b;
+    --paper:#f3f1ec; --paper-filter:brightness(.85); --paper-edge:#30363f;
     --shadow:0 1px 2px rgba(0,0,0,.45),0 4px 16px rgba(0,0,0,.35);
     --focus:#7aa7ff; color-scheme:dark;
-    --rev:#e0a93c; --rev-bar:#e0a93c; --rev-soft:#3a2d14; --rev-ink:#f0c46a; --track:#2b3036; --done:#4fbf86; --way-soft:#173325;
-    --today-1:#8f3b20; --today-2:#6e2b16; --on-today:#fff3ec; --today-btn:#fff3ec; --today-btn-ink:#8f3b20;
+    --rev:#d9a845; --rev-bar:#d9a845; --rev-soft:#392e13; --rev-ink:#eec472; --track:#2b313a; --done:#4fbf86; --way-soft:#17332a;
+    --today-1:#7c1a35; --today-2:#511023; --on-today:#ffeef2; --today-btn:#ffeef2; --today-btn-ink:#7c1a35;
+    --heat-new:#262c35; --gold:#cfa76b;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#131518; --surface:#1b1e22; --surface-2:#21252a; --ink:#ebe8e1; --muted:#a8aeb5; --faint:#8b9198; --line:#30353b;
-  --accent:#e6825f; --accent-strong:#f29a7a; --accent-soft:#3b2620; --on-accent:#1b120f;
-  --ok:#55c38c; --ok-soft:#163224; --on-ok:#0f1a14; --bad:#ff5f5f; --bad-soft:#4a1d1d; --on-bad:#1c0f0e;
+  --bg:#13161b; --surface:#1b1f26; --surface-2:#222731; --ink:#e8e9e4; --muted:#a6adb6; --faint:#8a9098; --line:#30363f;
+  --accent:#93a7f2; --accent-strong:#aebdf6; --accent-soft:#242c47; --on-accent:#0f1420;
+  --ok:#57bd8e; --ok-soft:#173226; --on-ok:#0f1a14; --bad:#ff6b5e; --bad-soft:#4a1d1a; --on-bad:#1c0f0e;
   --bub-edge:#6b727b;
-  --paper:#f3f1ec; --paper-filter:brightness(.85); --paper-edge:#30353b;
+  --paper:#f3f1ec; --paper-filter:brightness(.85); --paper-edge:#30363f;
   --shadow:0 1px 2px rgba(0,0,0,.45),0 4px 16px rgba(0,0,0,.35);
   --focus:#7aa7ff; color-scheme:dark;
-  --rev:#e0a93c; --rev-bar:#e0a93c; --rev-soft:#3a2d14; --rev-ink:#f0c46a; --track:#2b3036; --done:#4fbf86; --way-soft:#173325;
-  --today-1:#8f3b20; --today-2:#6e2b16; --on-today:#fff3ec; --today-btn:#fff3ec; --today-btn-ink:#8f3b20;
+  --rev:#d9a845; --rev-bar:#d9a845; --rev-soft:#392e13; --rev-ink:#eec472; --track:#2b313a; --done:#4fbf86; --way-soft:#17332a;
+  --today-1:#7c1a35; --today-2:#511023; --on-today:#ffeef2; --today-btn:#ffeef2; --today-btn-ink:#7c1a35;
+  --heat-new:#262c35; --gold:#cfa76b;
 }
 *,*::before,*::after{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{height:100%}
 html,body{background:var(--bg);color:var(--ink)}
 body{min-height:100%;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.45;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+.disp,.hero h1,.today h2,.big,.res-title,.timer,.mast h1{font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-stretch:112%}
 #app{min-height:100%;display:flex;flex-direction:column}
 #app>section{flex:0 0 auto}
 h1,h2,h3{text-wrap:balance;margin:0;line-height:1.2}
@@ -78,7 +84,7 @@ a{color:var(--accent-strong)}
 .mast{display:flex;flex-direction:column;gap:6px;padding-block:2px 6px}
 .mast h1{font-size:1.75rem;letter-spacing:-.01em}
 .mast .sub{color:var(--muted);font-size:1rem}
-.kicker{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-strong);font-weight:700}
+.kicker{font-size:.9rem;color:var(--muted);font-weight:700}
 
 /* buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:10px 18px;border-radius:999px;border:2px solid var(--accent);background:var(--accent);color:var(--on-accent);font-weight:700;text-decoration:none;line-height:1.1;cursor:pointer}
@@ -122,7 +128,7 @@ a{color:var(--accent-strong)}
 .sec-last{display:block}
 .sec-cont{font-size:.875rem;font-weight:700;color:var(--accent-strong)}
 .sec-go{flex:none;font-size:1.6rem;line-height:1;color:var(--faint)}
-.h2{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:10px 2px -4px}
+.h2{font-size:1.02rem;color:var(--ink);font-weight:800;margin:10px 2px -4px}
 footer.foot{display:flex;flex-direction:column;gap:6px;font-size:.875rem;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;margin-top:6px}
 footer.foot .row{display:flex;flex-wrap:wrap;gap:0 18px}
 
@@ -221,7 +227,7 @@ footer.foot .row{display:flex;flex-wrap:wrap;gap:0 18px}
 table.res{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
 table.res th,table.res td{padding:10px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
 table.res th:first-child,table.res td:first-child{text-align:left;white-space:normal}
-table.res th{font-size:.75rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:700}
+table.res th{font-size:.82rem;color:var(--muted);font-weight:700}
 @media (max-width:420px){#sum-card{padding:4px 12px}table.res th,table.res td{padding:10px 4px}}
 @media (max-width:340px){table.res{font-size:.88rem}table.res th{letter-spacing:0}}
 .pass{color:var(--ok);font-weight:700}
@@ -275,11 +281,13 @@ table.res th{font-size:.75rem;letter-spacing:.04em;text-transform:uppercase;colo
 
 /* home */
 .hero{display:flex;flex-direction:column;gap:4px;padding-block:4px 2px}
-.hero h1{font-size:2.3rem;letter-spacing:-.02em;font-weight:800;line-height:1.05}
+.hero h1{font-size:2.55rem;letter-spacing:-.015em;font-weight:860;line-height:1.02;font-stretch:118%}
 .hero .sub{color:var(--muted);font-size:.98rem}
-.today{position:relative;overflow:hidden;border-radius:18px;padding:18px 18px 16px;color:var(--on-today);background:linear-gradient(140deg,var(--today-1),var(--today-2));box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+.today{position:relative;overflow:hidden;border-radius:20px;padding:20px 18px 18px;color:var(--on-today);background:linear-gradient(150deg,var(--today-1),var(--today-2));box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+.today::before{content:"";position:absolute;right:-46px;top:-52px;width:170px;height:170px;border-radius:50%;border:2px solid rgba(255,255,255,.14);pointer-events:none}
+.today::after{content:"";position:absolute;right:-12px;top:-24px;width:92px;height:92px;border-radius:50%;border:2px solid rgba(255,255,255,.18);pointer-events:none}
 
-.today-k{font-size:.75rem;letter-spacing:.09em;text-transform:uppercase;font-weight:800;opacity:.9}
+.today-k{font-size:.92rem;font-weight:800;opacity:.92}
 .today h2{font-size:1.45rem;font-weight:800;letter-spacing:-.01em}
 .today p{font-size:.98rem;opacity:.95}
 .today .btn{background:var(--today-btn);border-color:var(--today-btn);color:var(--today-btn-ink);min-height:50px;font-size:1.05rem}
@@ -357,19 +365,19 @@ table.res th{font-size:.75rem;letter-spacing:.04em;text-transform:uppercase;colo
 .g-head{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;border:0;padding:14px 16px;min-height:56px;color:var(--ink)}
 @media (hover:hover){.g-head:hover{background:var(--surface-2)}}
 .g-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
-.g-k{display:inline-flex;align-items:center;gap:5px;color:var(--accent-strong);font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.g-k{display:inline-flex;align-items:center;gap:5px;color:var(--accent-strong);font-size:.82rem;font-weight:800}
 .g-k svg{width:15px;height:15px}
 .g-t{font-weight:700;font-size:1rem;line-height:1.3}
 .g-ch{flex:none;width:22px;height:22px;transition:transform .18s}
 .g-head[aria-expanded="true"] .g-ch{transform:rotate(180deg)}
 .g-body{padding:2px 16px 16px;display:flex;flex-direction:column;gap:14px;border-top:1px solid var(--line)}
-.g-sec h3,.twin h3{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-strong);font-weight:800;margin:12px 0 6px}
+.g-sec h3,.twin h3{font-size:.85rem;color:var(--accent-strong);font-weight:800;margin:12px 0 6px}
 .g-sec p,.g-rem p{font-size:1rem;line-height:1.55}
 .g-steps{margin:0;padding:0;list-style:none;counter-reset:gs;display:flex;flex-direction:column;gap:8px}
 .g-steps li{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start;line-height:1.5}
 .g-steps li::before{counter-increment:gs;content:counter(gs);display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accent-soft);color:var(--accent-strong);font-weight:800;font-size:.85rem;margin-top:1px}
 .g-rem{background:var(--rev-soft);border-radius:12px;padding:2px 14px 12px}
-.g-rem h3{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--rev-ink);font-weight:800;margin:10px 0 4px}
+.g-rem h3{font-size:.85rem;color:var(--rev-ink);font-weight:800;margin:10px 0 4px}
 .twin{border-top:1px dashed var(--line);padding-top:2px;display:flex;flex-direction:column;gap:10px}
 .twin-sub{font-size:.875rem;color:var(--muted);margin-top:-4px}
 .twin-q{font-size:1rem;line-height:1.55;font-weight:600}
@@ -431,7 +439,7 @@ textarea.backup{font:inherit;font-size:.85rem;width:100%;min-height:76px;padding
 .tdots i{flex:0 1 10px;min-width:0;aspect-ratio:1;border-radius:50%;border:1.5px solid rgba(255,255,255,.7)}
 .tdots i.f{background:#fff;border-color:#fff}
 .today.done{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
-.today.done::after{display:none}
+.today.done::before,.today.done::after{display:none}
 .today.done .today-k{color:var(--ok)}
 .today.done .ring{background:var(--ok);color:var(--on-ok)}
 .today.done p{opacity:1;color:var(--muted)}
@@ -457,6 +465,40 @@ textarea.backup{font:inherit;font-size:.85rem;width:100%;min-height:76px;padding
 @keyframes pop{50%{transform:scale(1.06)}}
 @media (prefers-reduced-motion: reduce){.bub.pop{animation:none}}
 @media (hover:none){.zoom-fab:active,.topic:active{filter:brightness(.92)}}
+
+/* 3.0: screen entrance, avance, mapa, logros, confetti */
+#app>section:not([hidden]){animation:scrin .22s ease-out}
+@keyframes scrin{from{opacity:0;transform:translateY(5px)}}
+@media (prefers-reduced-motion: reduce){#app>section:not([hidden]){animation:none}}
+.htiles{display:flex;gap:10px}
+.htile{flex:1;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.htile .n{font-family:"Archivo",system-ui,sans-serif;font-stretch:115%;font-weight:830;font-size:1.7rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.htile .l{font-size:.82rem;color:var(--muted)}
+.days14{display:flex;align-items:flex-end;gap:4px;height:84px;margin-top:4px}
+.days14 i{flex:1;min-width:0;background:var(--accent);border-radius:4px 4px 2px 2px;min-height:3px}
+.days14 i.z{background:var(--track)}
+.days14 i.now{background:var(--today-1)}
+.days14-l{display:flex;gap:4px;font-size:.68rem;color:var(--faint);text-align:center}
+.days14-l span{flex:1;min-width:0}
+.heat{display:flex;flex-direction:column;gap:10px}
+.heat .hrow{display:flex;align-items:flex-start;gap:10px}
+.heat .hl{flex:none;width:42px;font-size:.78rem;font-weight:700;color:var(--muted);padding-top:2px}
+.cells{display:flex;flex-wrap:wrap;gap:4px;flex:1;min-width:0}
+.cell{width:16px;height:16px;border-radius:4px;background:var(--heat-new);border:0;padding:0;cursor:pointer}
+.cell.done{background:var(--done)}
+.cell.way{background:var(--way-soft);box-shadow:inset 0 0 0 1.5px var(--done)}
+.cell.rev{background:var(--rev)}
+@media (hover:hover){.cell:hover{filter:brightness(.9)}}
+.ach{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.ach-row{display:flex;gap:12px;align-items:center;padding:12px 16px;border-top:1px solid var(--line)}
+.ach-row:first-child{border-top:0}
+.ach-ic{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;background:var(--ok);color:var(--on-ok)}
+.ach-row.off .ach-ic{background:var(--surface-2);color:var(--faint)}
+.ach-row.off .ach-t{color:var(--muted)}
+.ach-t{font-weight:700}
+.ach-s{font-size:.85rem;color:var(--muted)}
+.ach-main{display:flex;flex-direction:column;gap:1px;min-width:0}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:60}
 
 /* technical details */
 table.diag{border-collapse:collapse;font-size:.85rem;font-variant-numeric:tabular-nums;width:100%}
@@ -524,6 +566,7 @@ table.diag td,table.diag th{border-bottom:1px solid var(--line);padding:6px 6px;
     <div class="h2row"><h2 class="h2">Tu avance</h2><span class="h2-aside tnum" id="home-total"></span></div>
     <p class="legend" aria-hidden="true"><span><i class="l-done"></i>Dominadas</span><span><i class="l-way"></i>En camino</span><span><i class="l-rev"></i>Por repasar</span><span><i class="l-tick"></i>Para pasar con 6</span></p>
     <div id="area-list" class="area-list"></div>
+    <div class="more-list"><button class="more-row" id="btn-stats"><span class="mr-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="sec-main"><span class="sec-name">Tu avance y logros</span><span class="sec-meta" id="stats-meta">El mapa de las 272, tu racha y tus días de estudio</span></span><span class="sec-go" aria-hidden="true">›</span></button></div>
     <div class="h2row"><h2 class="h2">Más formas de estudiar</h2></div>
     <div class="more-list">
       <button class="more-row" id="btn-sim"><span class="mr-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M10 2h4"/></svg></span><span class="sec-main"><span class="sec-name">Simulacro de examen</span><span class="sec-meta" id="sim-meta"></span></span><span class="sec-go" aria-hidden="true">›</span></button>
@@ -584,6 +627,7 @@ table.diag td,table.diag th{border-bottom:1px solid var(--line);padding:6px 6px;
     <div class="card stack">
       <label class="set-row" for="set-date"><b>Fecha de tu examen</b><input type="date" id="set-date" min="2026-01-01" max="2030-12-31"></label>
       <div class="set-row"><b id="set-size-lbl">Preguntas por sesión</b><div class="segc" id="set-size" role="group" aria-labelledby="set-size-lbl"><button data-size="10">10</button><button data-size="20">20</button><button data-size="30">30</button></div></div>
+      <div class="set-row"><b id="set-theme-lbl">Tema</b><div class="segc" id="set-theme" role="group" aria-labelledby="set-theme-lbl"><button data-th="auto">Auto</button><button data-th="light">Claro</button><button data-th="dark">Oscuro</button></div></div>
     </div>
     <div class="card stack">
       <b>Respaldo de tu avance</b>
@@ -712,6 +756,41 @@ table.diag td,table.diag th{border-bottom:1px solid var(--line);padding:6px 6px;
   </div>
 </section>
 
+<!-- ============ STATS ============ -->
+<section id="scr-stats" hidden>
+  <div class="topbar"><div class="in"><button class="tb-btn" id="st-back">← Inicio</button><div class="ttl">Tu avance</div><span class="count"></span></div></div>
+  <div class="wrap stack">
+    <header class="mast">
+      <span class="kicker">Tu avance</span>
+      <h1 id="st-title" class="tnum"></h1>
+      <p class="sub tnum" id="st-sub"></p>
+    </header>
+    <div id="st-bar"></div>
+    <div class="htiles">
+      <div class="htile"><span class="n" id="st-streak"></span><span class="l">días seguidos</span></div>
+      <div class="htile"><span class="n" id="st-best"></span><span class="l">tu mejor racha</span></div>
+      <div class="htile"><span class="n" id="st-count"></span><span class="l">respuestas en total</span></div>
+    </div>
+    <div class="card stack" style="gap:6px">
+      <b>Respuestas por día</b>
+      <p class="small muted">Las últimas dos semanas. El de hoy va en guinda.</p>
+      <div class="days14" id="st-days" aria-hidden="true"></div>
+      <div class="days14-l" id="st-days-l" aria-hidden="true"></div>
+    </div>
+    <div class="h2row"><h2 class="h2">El mapa de las 272</h2><span class="h2-aside tnum" id="st-map-n"></span></div>
+    <p class="small muted" style="margin:-6px 2px 0">Cada celda es una pregunta. Toca una para abrirla con su guía.</p>
+    <div class="card heat" id="st-heat"></div>
+    <p class="legend" aria-hidden="true"><span><i class="l-done"></i>Dominada</span><span><i class="l-way"></i>En camino</span><span><i class="l-rev"></i>Por repasar</span><span><i class="l-new"></i>Sin ver</span></p>
+    <div class="stack" id="st-fail-box" style="gap:8px" hidden>
+      <div class="h2row"><h2 class="h2">Las que más fallas</h2></div>
+      <div class="topics" id="st-fail"></div>
+    </div>
+    <div class="h2row"><h2 class="h2">Logros</h2><span class="h2-aside tnum" id="st-ach-n"></span></div>
+    <div class="ach" id="st-ach"></div>
+    <div class="row-btns" style="margin-top:4px"><button class="btn" id="st-home">Inicio</button></div>
+  </div>
+</section>
+
 <!-- ============ TECHNICAL DETAILS ============ -->
 <section id="scr-diag" hidden>
   <div class="wrap stack">
@@ -719,7 +798,7 @@ table.diag td,table.diag th{border-bottom:1px solid var(--line);padding:6px 6px;
       <span class="kicker">Detalles técnicos</span>
       <h1>Cómo se leyó el PDF</h1>
       <p class="sub" id="diag-sub"></p>
-      <p class="muted small">Versión de la app 2.0 · 11-oct-2026 · lector pdf.js 3.11.174</p>
+      <p class="muted small">Versión de la app 3.0 · 17-oct-2026 · lector pdf.js 3.11.174</p>
     </header>
     <div class="row-btns">
       <button class="btn" id="diag-browse">Ver las 272 en orden</button>
@@ -1169,7 +1248,9 @@ var CORE = (function () {
       else if (isDue(r, ts)) due.push(q.i);
       else rest.push(q.i);
     });
-    var byWeak = function (a, b) { var ra = srs[a], rb = srs[b]; return ra[0] - rb[0] || ra[1] - rb[1]; }; // stable sort: ties keep the shuffle
+    // weakest first, by level and due DAY (never by the exact hour: that repeated the same
+    // questions in the same order day after day); the stable sort keeps the shuffle for ties
+    var byWeak = function (a, b) { var ra = srs[a], rb = srs[b]; return ra[0] - rb[0] || dayStart(ra[1]) - dayStart(rb[1]); };
     due = shuffle(due).sort(byWeak);
     // while there are questions never seen, at least half of the session is new
     var out = due.slice(0, nFresh ? Math.max(0, size - Math.min(Math.ceil(size / 2), nFresh)) : size);
@@ -1187,7 +1268,7 @@ var CORE = (function () {
       stats[best].way++; stats[best].fresh--;
     }
     if (out.length < size) {
-      rest = shuffle(rest).sort(function (a, b) { var ra = srs[a], rb = srs[b]; return ra[0] - rb[0] || ra[2] - rb[2]; });
+      rest = shuffle(rest).sort(function (a, b) { var ra = srs[a], rb = srs[b]; return ra[0] - rb[0] || dayStart(ra[2]) - dayStart(rb[2]); });
       out = out.concat(rest.slice(0, size - out.length));
     }
     return shuffle(out);
@@ -1196,7 +1277,7 @@ var CORE = (function () {
   function practiceOrder(pool, srs, ts) {
     var due = [], fresh = [], rest = [];
     pool.forEach(function (qi) { var r = srs[qi]; if (!r) fresh.push(qi); else if (isDue(r, ts)) due.push(qi); else rest.push(qi); });
-    due = shuffle(due).sort(function (a, b) { return srs[a][0] - srs[b][0] || srs[a][1] - srs[b][1]; });
+    due = shuffle(due).sort(function (a, b) { return srs[a][0] - srs[b][0] || dayStart(srs[a][1]) - dayStart(srs[b][1]); });
     return due.concat(shuffle(fresh), shuffle(rest));
   }
   function answeredCount(r) { var n = 0; r.order.forEach(function (qi) { if (r.ans[qi] !== undefined) n++; }); return n; }
@@ -1252,7 +1333,14 @@ var CORE = (function () {
   // One localStorage record; every save merges per section, so two tabs never erase each other.
   var LS_KEY = 'practica-exacer-2025.v1', ZOOM_KEY = 'practica-exacer-2025.zoom', ROT_KEY = 'practica-exacer-2025.rot';
   var SAVED_KEY = 'practica-exacer-2025.saved', VIEW_KEY = 'practica-exacer-2025.view', TIP_KEY = 'practica-exacer-2025.tips';
-  var NAG_KEY = 'practica-exacer-2025.bknag';
+  var NAG_KEY = 'practica-exacer-2025.bknag', THEME_KEY = 'practica-exacer-2025.theme';
+  function themePref() { try { var v = localStorage.getItem(THEME_KEY); return v === 'light' || v === 'dark' ? v : 'auto'; } catch (e) { return 'auto'; } }
+  function applyTheme(v) {
+    try { if (v === 'auto') localStorage.removeItem(THEME_KEY); else localStorage.setItem(THEME_KEY, v); } catch (e) {}
+    if (v === 'light' || v === 'dark') document.documentElement.setAttribute('data-theme', v);
+    else document.documentElement.removeAttribute('data-theme');
+  }
+  applyTheme(themePref());
   function isInt(x, lo, hi) { return typeof x === 'number' && Math.floor(x) === x && x >= lo && x <= hi; }
   function isNum(x) { return typeof x === 'number' && isFinite(x); }
   function cleanAns(sec, ans) {
@@ -1466,7 +1554,7 @@ var CORE = (function () {
   function idbDel() { return withTimeout(idbDo('readwrite', function (st) { return st.delete(IDB_KEY); }), 6000).catch(function () {}); }
 
   // ---------------------------------------------------------------- screens
-  var SCREENS = ['scr-setup', 'scr-busy', 'scr-home', 'scr-area', 'scr-set', 'scr-method', 'scr-quiz', 'scr-sum', 'scr-diag'];
+  var SCREENS = ['scr-setup', 'scr-busy', 'scr-home', 'scr-area', 'scr-set', 'scr-method', 'scr-quiz', 'scr-sum', 'scr-diag', 'scr-stats'];
   function show(id) {
     if (app.screen === 'scr-quiz' && id !== 'scr-quiz') stopSim();
     SCREENS.forEach(function (s) { $(s).hidden = s !== id; });
@@ -1741,11 +1829,16 @@ var CORE = (function () {
     if (chk && chk.located < chk.total) notes.push('Hay ' + plural(chk.total - chk.located, 'pregunta que no se pudo recortar: se mostrará', 'preguntas que no se pudieron recortar: se mostrarán') + ' con la página completa.');
     if (chk && app.keySource === 'pdf') notes.push('Las claves de tu PDF difieren en ' + plural(chk.keyDiff.length, 'pregunta', 'preguntas') + ' de las que traía la app. Se usan las de tu PDF.');
     if (chk && app.keySource === 'app' && chk.keyDiff.length) notes.push('Tu PDF marca otra clave en ' + plural(chk.keyDiff.length, 'pregunta', 'preguntas') + ' y no se pudo leer su tabla completa. Se usan las claves de la app.');
+    // the exam's comprobante window (4th presencial application 2026): a reminder the first days
+    if (prefs().exam === '2026-11-29') {
+      var nowTs = Date.now(), c0 = new Date('2026-11-13T00:00:00').getTime(), c1 = new Date('2026-11-21T00:00:00').getTime();
+      if (nowTs >= c0 && nowTs < c1) notes.push('Ya puedes descargar tu comprobante de ingreso en SIREC. Trae tu sede y tu horario, y lo necesitas impreso el día del examen.');
+    }
     $('home-msg').hidden = !notes.length;
     $('home-msg').textContent = notes.join(' ');
 
     var left = daysLeft(), st = streak();
-    $('home-kicker').textContent = 'EXACER · ' + longDate(examTs());
+    $('home-kicker').textContent = 'Tu examen: ' + longDate(examTs());
     $('home-count').textContent = left > 1 ? 'Faltan ' + left + ' días' : left === 1 ? 'Mañana es tu examen' : left === 0 ? 'Hoy es tu examen' : 'Tu examen ya pasó';
     $('home-sub').textContent = left < 0 ? 'Si tienes otra fecha, cámbiala en Ajustes.' :
       (st.today ? 'Hoy llevas ' + plural(st.today, 'respuesta', 'respuestas') : 'Hoy todavía no practicas') + (st.n >= 2 ? ' · ' + st.n + ' días seguidos' : '');
@@ -1881,6 +1974,144 @@ var CORE = (function () {
     $('today-box').innerHTML = '<div class="' + cls + '">' + h + '</div>';
   }
 
+  // ---------------------------------------------------------------- stats, map and achievements (3.0)
+  function totalAnswers() { var n = 0; Object.keys(state.days).forEach(function (k) { n += state.days[k]; }); return n; }
+  // the longest run of days with practice, counting today if it has answers
+  function bestStreak() {
+    var keys = Object.keys(state.days).sort(), best = 0, run = 0, prev = 0;
+    keys.forEach(function (k) {
+      var t = new Date(k + 'T12:00:00').getTime();
+      run = prev && Math.round((t - prev) / C.DAY) === 1 ? run + 1 : 1;
+      prev = t;
+      if (run > best) best = run;
+    });
+    return best;
+  }
+  function fmtInt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  function achievements(s, ts) {
+    var best = bestStreak(), tot = totalAnswers();
+    var anySim = false, simPass = false;
+    C.AREAS.forEach(function (a) {
+      var l = state.last['sim-' + a.id];
+      if (l) { anySim = true; if (C.passes(l.c, l.total)) simPass = true; }
+    });
+    var areasAl6 = 0;
+    C.AREAS.forEach(function (a) {
+      var st2 = C.poolStats(C.section(a.id).pool, state.srs, ts);
+      if (st2.done >= Math.ceil(0.6 * st2.n - 1e-9)) areasAl6++;
+    });
+    return [
+      { t: 'Primer paso', s: 'Contesta tu primera pregunta', on: tot > 0 },
+      { t: 'Tres días seguidos', s: 'Practica tres días sin fallar uno', on: best >= 3 },
+      { t: 'Una semana entera', s: 'Siete días seguidos de práctica', on: best >= 7 },
+      { t: 'Dos semanas de hierro', s: 'Catorce días seguidos', on: best >= 14 },
+      { t: '30 dominadas', s: 'Domina tus primeras 30 preguntas', on: s.done >= 30 },
+      { t: '100 dominadas', s: 'Más de un tercio del examen', on: s.done >= 100 },
+      { t: '200 dominadas', s: 'La recta final a la vista', on: s.done >= 200 },
+      { t: 'Las 272', s: 'Domina todas las preguntas', on: s.done >= C.Q.length },
+      { t: 'Primer simulacro', s: 'Termina un simulacro de área', on: anySim },
+      { t: 'Simulacro aprobado', s: 'Saca 6 o más en un simulacro', on: simPass },
+      { t: 'Un área lista', s: 'Dominadas para el 6 en un área', on: areasAl6 >= 1 },
+      { t: 'Las 7 listas', s: 'Las siete áreas con su 60 % dominado', on: areasAl6 >= C.AREAS.length },
+      { t: 'Mil respuestas', s: fmtInt(1000) + ' respuestas en total', on: tot >= 1000 }
+    ];
+  }
+  // the questions he keeps missing: 3 attempts or more and at most half of them right
+  function hardList(ts) {
+    var out = [];
+    Object.keys(state.srs).forEach(function (k) {
+      var qi = +k, r = state.srs[k];
+      if (!r || r[4] < 3) return;
+      var fails = r[4] - r[5];
+      if (fails * 2 >= r[4]) out.push({ qi: qi, fails: fails, n: r[4], rate: fails / r[4] });
+    });
+    out.sort(function (a, b) { return b.rate - a.rate || b.n - a.n || a.qi - b.qi; });
+    return out.slice(0, 8);
+  }
+  function renderStats() {
+    if (!app.doc) { renderHome(); return; }
+    adopt(readStored());
+    var ts = Date.now(), s = C.poolStats(C.ALL_POOL, state.srs, ts), left = daysLeft();
+    $('st-title').textContent = s.done + ' de ' + C.Q.length + ' dominadas';
+    var remaining = C.Q.length - s.done, sub = '';
+    if (!remaining) sub = 'Las dominas todas. Mantenlas frescas hasta el examen.';
+    else if (left > 0) sub = 'Para llegar a todas antes del examen: ' + Math.ceil(remaining / left) + ' dominadas nuevas al día.';
+    $('st-sub').textContent = sub; $('st-sub').hidden = !sub;
+    $('st-bar').innerHTML = barHtml(s, 'lg');
+    var st = streak();
+    $('st-streak').textContent = st.n;
+    $('st-best').textContent = bestStreak();
+    $('st-count').textContent = fmtInt(totalAnswers());
+    // bars: the last 14 days, today in guinda
+    var counts = [], labels = [], max = 1;
+    for (var k = 13; k >= 0; k--) {
+      var d = C.addDays(ts, -k), c = state.days[C.dayKey(d)] || 0;
+      counts.push(c); labels.push('DLMMJVS'.charAt(new Date(d).getDay()));
+      if (c > max) max = c;
+    }
+    $('st-days').innerHTML = counts.map(function (c, i) {
+      var h = c ? Math.max(6, Math.round(c / max * 100)) : 3;
+      return '<i class="' + (c ? '' : 'z') + (i === 13 ? ' now' : '') + '" style="height:' + h + '%"></i>';
+    }).join('');
+    $('st-days-l').innerHTML = labels.map(function (l) { return '<span>' + l + '</span>'; }).join('');
+    // the map of the 272
+    var hh = '';
+    C.AREAS.forEach(function (a) {
+      var pool = C.section(a.id).pool, cells = '';
+      pool.forEach(function (qi, k2) {
+        var q = C.Q[qi], stt = C.srsState(state.srs[qi]);
+        var lbl = a.name + ' pregunta ' + q.n + ', ' + ({ done: 'dominada', way: 'en camino', rev: 'por repasar', new: 'sin ver' })[stt];
+        cells += '<button class="cell ' + (stt === 'new' ? '' : stt) + '" data-hq="' + a.id + ':' + k2 + '" aria-label="' + lbl + '"></button>';
+      });
+      hh += '<div class="hrow"><span class="hl">' + esc(a.short) + '</span><span class="cells">' + cells + '</span></div>';
+    });
+    $('st-heat').innerHTML = hh;
+    $('st-map-n').textContent = s.seen ? 'Has visto ' + s.seen : '';
+    // the hardest ones
+    var hard = hardList(ts);
+    app.hardList = hard.map(function (x) { return x.qi; });
+    $('st-fail-box').hidden = !hard.length;
+    $('st-fail').innerHTML = hard.map(function (x, i) {
+      var q = C.Q[x.qi];
+      return '<button class="topic" data-fq="' + i + '">' + esc(C.AREAS[q.a].short + ' ' + q.n) + ' · ' + x.fails + ' de ' + x.n + ' mal</button>';
+    }).join('');
+    // achievements
+    var ach = achievements(s, ts), onN = ach.filter(function (x) { return x.on; }).length;
+    $('st-ach-n').textContent = onN + ' de ' + ach.length;
+    $('st-ach').innerHTML = ach.map(function (x) {
+      return '<div class="ach-row' + (x.on ? '' : ' off') + '"><span class="ach-ic" aria-hidden="true">' + (x.on ? '✓' : '·') + '</span>' +
+        '<span class="ach-main"><span class="ach-t">' + esc(x.t) + (x.on ? '' : '<span class="vh"> (pendiente)</span>') + '</span><span class="ach-s">' + esc(x.s) + '</span></span></div>';
+    }).join('');
+    show('scr-stats');
+  }
+  // a small, quiet celebration when the daily session ends complete
+  function confetti() {
+    if (calm || document.visibilityState === 'hidden') return;
+    var old = $('confetti'); if (old) old.remove();
+    var cv = document.createElement('canvas'); cv.id = 'confetti';
+    cv.width = window.innerWidth; cv.height = window.innerHeight;
+    document.body.appendChild(cv);
+    var ctx = cv.getContext('2d');
+    if (!ctx) { cv.remove(); return; }
+    var colors = ['#9f2241', '#2947b9', '#1e7a56', '#bc955c'], parts = [];
+    for (var i = 0; i < 70; i++) {
+      parts.push({ x: Math.random() * cv.width, y: -20 - Math.random() * cv.height * 0.4, w: 5 + Math.random() * 5, h: 8 + Math.random() * 6,
+        v: 2.2 + Math.random() * 2.6, r: Math.random() * Math.PI, vr: (Math.random() - 0.5) * 0.25, c: colors[i % 4], sw: Math.random() * 2 });
+    }
+    var t0 = now();
+    (function tick() {
+      var dt = now() - t0;
+      if (dt > 1600 || !cv.parentNode) { cv.remove(); return; }
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      ctx.globalAlpha = dt > 1200 ? 1 - (dt - 1200) / 400 : 1;
+      parts.forEach(function (p) {
+        p.y += p.v; p.x += Math.sin(dt / 180 + p.sw) * 1.1; p.r += p.vr;
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore();
+      });
+      requestAnimationFrame(tick);
+    })();
+  }
+
   // ---------------------------------------------------------------- one area
   function areaOf(id) { for (var i = 0; i < C.AREAS.length; i++) if (C.AREAS[i].id === id) return C.AREAS[i]; return null; }
   function renderArea(id) {
@@ -1932,6 +2163,8 @@ var CORE = (function () {
     $('set-share').hidden = !(navigator.share);
     $('set-last').textContent = 'Último respaldo: ' + (p.bk ? (C.dayKey(p.bk) === C.dayKey(Date.now()) ? 'hoy' : 'el ' + new Date(p.bk).getDate() + ' de ' + MONTHS[new Date(p.bk).getMonth()]) : 'nunca') + '.';
     Array.prototype.forEach.call(document.querySelectorAll('#set-size button'), function (b) { b.setAttribute('aria-pressed', String(+b.dataset.size === p.size)); });
+    var th = themePref();
+    Array.prototype.forEach.call(document.querySelectorAll('#set-theme button'), function (b) { b.setAttribute('aria-pressed', String(b.dataset.th === th)); });
     setMsg('');
     $('set-paste').value = '';
     disarm($('set-reset'), 'Borrar mi avance');
@@ -2002,7 +2235,7 @@ var CORE = (function () {
   function goUp() {
     if (app.screen === 'scr-quiz') leaveQuiz();
     else if (app.screen === 'scr-sum') { writeView(null); renderHome(); }
-    else if (app.screen === 'scr-area' || app.screen === 'scr-set' || app.screen === 'scr-method' || app.screen === 'scr-diag') renderHome();
+    else if (app.screen === 'scr-area' || app.screen === 'scr-set' || app.screen === 'scr-method' || app.screen === 'scr-diag' || app.screen === 'scr-stats') renderHome();
   }
 
   // ---------------------------------------------------------------- simulacro clock
@@ -2596,7 +2829,7 @@ var CORE = (function () {
     setRound(r.sec, null, r.t0);
     app.round = null; app.lastAns = null;
     app.summary = { sec: r.sec, g: g, ans: Object.assign({}, r.ans), total: r.order.length, t0: r.t0,
-      m0: isInt(r.m0, 0, C.Q.length) ? r.m0 : -1, sp: r.spent || 0, up: !!(opts && opts.timeUp), ord: sec.sim ? r.order.slice() : null, sb: seenB, lk: luck };
+      m0: isInt(r.m0, 0, C.Q.length) ? r.m0 : -1, sp: r.spent || 0, up: !!(opts && opts.timeUp), ord: sec.sim ? r.order.slice() : null, sb: seenB, lk: luck, fresh: true };
     // kept so the results survive a reload, the back gesture or the phone closing the tab
     var S = app.summary;
     writeView(g.n ? { sec: r.sec, ans: S.ans, total: S.total, t0: r.t0, m0: S.m0, sp: S.sp, up: S.up ? 1 : 0, ord: S.ord, sb: S.sb, lk: S.lk } : null);
@@ -2696,6 +2929,12 @@ var CORE = (function () {
       hm.textContent = 'Inicio'; hm.className = 'btn ghost block'; hm.style.order = 3;
     }
     show('scr-sum');
+    // a quiet celebration, once: the whole daily session done, or a simulacro passed
+    if (S.fresh) {
+      S.fresh = false;
+      var celebrate = (sec.sub && !partial) || (sec.sim && C.passes(g.c, S.total));
+      if (celebrate) setTimeout(confetti, 180);
+    }
   }
   function restoreView() {
     var v = readView(), sec = v && C.section(v.sec);
@@ -2740,6 +2979,7 @@ var CORE = (function () {
       app.mode = 'quiz';
       if (origin === 'area' && app.areaId) renderArea(app.areaId);
       else if (origin === 'home') renderHome();
+      else if (origin === 'stats') renderStats();
       else renderDiag();
       return;
     }
@@ -2995,6 +3235,9 @@ var CORE = (function () {
     if (t.dataset.area) { if (app.doc) renderArea(t.dataset.area); return; }
     if (t.classList.contains('bub')) { if (app.mode === 'browse' || app.mode === 'review') browseAnswer(+t.dataset.c, byPointer); else choose(+t.dataset.c, byPointer); return; }
     if (t.classList.contains('sb')) { if (app.doc && app.areaId) openBrowse(C.section(app.areaId).pool, +t.dataset.q, 'area'); return; }
+    if (t.dataset.hq) { var hq = t.dataset.hq.split(':'); if (app.doc && C.section(hq[0])) openBrowse(C.section(hq[0]).pool, +hq[1], 'stats'); return; }
+    if (t.dataset.fq !== undefined) { if (app.doc && app.hardList && app.hardList.length) openBrowse(app.hardList, +t.dataset.fq, 'stats'); return; }
+    if (t.dataset.th) { applyTheme(t.dataset.th); renderSettings(); return; }
     if (t.classList.contains('topt')) { twinAnswer(+t.dataset.t); return; }
     if (t.dataset.size) { setPrefs({ exam: prefs().exam, size: +t.dataset.size }); renderSettings(); return; }
     if (t.classList.contains('topic')) { openReview(+t.dataset.rev); return; }
@@ -3010,6 +3253,8 @@ var CORE = (function () {
       case 'bk-save': backupFromHome(); break;
       case 'bk-later': try { localStorage.setItem(NAG_KEY, String(Date.now())); } catch (e) {} $('bk-box').hidden = true; break;
       case 'btn-method': show('scr-method'); break;
+      case 'btn-stats': if (app.doc) renderStats(); break;
+      case 'st-back': case 'st-home': renderHome(); break;
       case 'method-home': renderHome(); break;
       case 'btn-settings': renderSettings(); break;
       case 'set-home': renderHome(); break;
